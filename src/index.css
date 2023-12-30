@@ -31,11 +31,11 @@
   }
 
   h2 {
-    font-size: 2rem;
+    font-size: 1.2rem;
   }
 
   p {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   /*
@@ -46,6 +46,9 @@
     background-color: #f2f2f4;
     color: #320763;
   }
+
+  /*  Other  */
+
 }
 
 /*

@@ -3,9 +3,9 @@
   "name": "SupportSphere: Empowering Dreams Together",
   "icons": [
     {
-      "src": "./assets/icons/mainicon.png",
+      "src": "/favicon.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "75x75"
     }
   ],
   "start_url": "/",
