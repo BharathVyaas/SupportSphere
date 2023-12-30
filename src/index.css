@@ -48,7 +48,14 @@
   }
 
   /*  Other  */
-
+  .progress {
+    background: radial-gradient(
+        closest-side,
+        rgba(255, 255, 255, 0.357) 60%,
+        #32076360
+      ),
+      conic-gradient(#32076350 80%, red 90%);
+  }
 }
 
 /*
