@@ -1,9 +1,48 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
+
+/**
+ * Class representing a store for progress-related data.
+ */
+class Store {
+  /**
+   * Create a Store.
+   * @param {string} id - The identifier for the progress container.
+   */
+  constructor(id) {
+    this.id = id;
+    this.keyframes = undefined;
+    this.progressContainer = undefined;
+  }
+
+  /**
+   * Get the progress container element.
+   * @returns {HTMLElement|null} - The progress container element or null if not found.
+   */
+  getProgressContainer() {
+    if (!this.progressContainer)
+      this.progressContainer = document.querySelector(
+        `#progressContainer${this.id}`
+      );
+
+    return this.progressContainer;
+  }
+
+  /**
+   * Get or generate keyframes for a given animation.
+   * @param {string} animationName - The name of the animation.
+   * @param {number} progress - The progress percentage.
+   * @returns {string} - The keyframes for the translation animation.
+   */
+  getKeyframes(animationName, progress) {
+    if (!this.keyframes)
+      this.keyframes = generateKeyframes(animationName, progress);
+
+    return this.keyframes;
+  }
+}
 
 /**
  * Creates a frame of keyframes for the translation animation.
- * @function
- * @inner
  * @param {number} percent - The percentage value of the keyframe.
  * @param {number} x - The x value for the conic gradient.
  * @returns {string} - The frame of keyframes for the translation animation.
@@ -21,8 +60,6 @@ const createFrame = (percent, x) => {
 
 /**
  * Generates the keyframes for the translation animation.
- * @function
- * @inner
  * @param {string} animationName - The name of the animation.
  * @param {number} progress - The progress percentage.
  * @returns {string} - The keyframes for the translation animation.
@@ -45,20 +82,19 @@ const generateKeyframes = (animationName, progress) => {
 
 /**
  * Custom hook for handling progress updates and animations.
- * @function
  * @param {number} progress - The progress percentage.
  * @param {string} id - The identifier for the progress container.
  * @returns {Object} - An object containing functions for updating and animating progress.
  */
 export function useProgress(progress, id) {
+  const [store] = useState(new Store(id));
+
   /**
    * Updates the background image of the progress container based on the progress percentage.
-   * @function
-   * @inner
    * @returns {void}
    */
   const updateProgress = useCallback(() => {
-    const progressContainer = document.querySelector(`#progressContainer${id}`);
+    const progressContainer = store.getProgressContainer();
     if (progressContainer) {
       progressContainer.style.backgroundImage = `
           radial-gradient(
@@ -69,19 +105,17 @@ export function useProgress(progress, id) {
           conic-gradient(#32076360 ${progress}%, #ecf0f1 ${0}%)
         `;
     }
-  }, [id, progress]);
+  }, [progress, store]);
 
   /**
    * Animates the progress container using keyframes.
-   * @function
-   * @inner
    * @returns {void}
    */
   const animateProgress = useCallback(() => {
-    const progressContainer = document.querySelector(`#progressContainer${id}`);
+    const progressContainer = store.getProgressContainer();
     if (progressContainer) {
       const animationName = `translateXAnimation-${id}`;
-      const progressAnimationKeyframes = generateKeyframes(
+      const progressAnimationKeyframes = store.getKeyframes(
         animationName,
         Number(progress)
       );
@@ -100,7 +134,7 @@ export function useProgress(progress, id) {
 
       progressContainer.style.animation = `${animationName} 1.3s 1 forwards`;
     }
-  }, [id, progress]);
+  }, [id, progress, store]);
 
   return { updateProgress, animateProgress };
 }
