@@ -11,7 +11,7 @@ function App() {
       children: [{ path: "/*", element: <Fundraiser /> }],
     },
   ]);
-  return <RouterProvider router={router}></RouterProvider>;
+  return <RouterProvider router={router} />;
 }
 
 export default App;
