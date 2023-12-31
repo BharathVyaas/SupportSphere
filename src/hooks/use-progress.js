@@ -29,12 +29,13 @@ class Store {
 
   /**
    * Get or generate keyframes for a given animation.
+   * @param {boolean} stale - Flag to refetch data or Change animation
    * @param {string} animationName - The name of the animation.
    * @param {number} progress - The progress percentage.
    * @returns {string} - The keyframes for the translation animation.
    */
-  getKeyframes(animationName, progress) {
-    if (!this.keyframes)
+  getKeyframes(stale, animationName, progress) {
+    if (!this.keyframes || stale)
       this.keyframes = generateKeyframes(animationName, progress);
 
     return this.keyframes;
@@ -114,8 +115,9 @@ export function useProgress(progress, id) {
   const animateProgress = useCallback(() => {
     const progressContainer = store.getProgressContainer();
     if (progressContainer) {
-      const animationName = `translateXAnimation-${id}`;
+      const animationName = `translateXAnimation-${id}-${Date.now()}`;
       const progressAnimationKeyframes = store.getKeyframes(
+        true,
         animationName,
         Number(progress)
       );
@@ -124,6 +126,7 @@ export function useProgress(progress, id) {
       if (
         !styleSheet ||
         !styleSheet.cssRules[0] ||
+        !styleSheet.cssRules[0].name ||
         styleSheet.cssRules[0].name !== animationName
       ) {
         styleSheet.insertRule(
