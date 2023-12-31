@@ -48,7 +48,14 @@ const cardDescriptionVariants = {
  * @param {string} props.needed - The total amount needed for the project.
  * @returns {JSX.Element} - The Card component JSX.
  */
-export function Card({ id, title, img, progress, raised, needed }) {
+export function Card(props) {
+  const id = props.id;
+  const title = props.title;
+  const img = props.img;
+  const progress = Math.floor(props.progress);
+  const raised = Number(props.raised).toLocaleString("en-US");
+  const needed = Number(props.needed).toLocaleString("en-US");
+
   const { updateProgress, animateProgress } = useProgress(progress, id);
 
   useEffect(() => {
