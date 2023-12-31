@@ -1,7 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const livariants = {
+/**
+ * Variants for the hover animation.
+ * @type {Object}
+ */
+const variants = {
   hover: {
     scale: 1.18,
     transition: {
@@ -16,67 +20,42 @@ const livariants = {
   },
 };
 
+/**
+ * Array of route information.
+ * @type {Array}
+ */
+const routes = [
+  { id: 1, link: "/crowdfunding", textContent: "Crowdfunding" },
+  { id: 2, link: "/events", textContent: "Events" },
+  { id: 3, link: "/sponsorships", textContent: "Sponsorships" },
+  { id: 4, link: "/membership-programs", textContent: "Membership Programs" },
+  { id: 5, link: "/awareness-campaigns", textContent: "Awareness Campaigns" },
+];
+
+/**
+ * Component for the main navigation in the Fundraiser page.
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 function FundraiserMainNavigation() {
   return (
     <nav>
       <ul className="grid place-content-center grid-flow-col my-auto min-h-full text-[1.1rem]">
-        <motion.li
-          variants={livariants}
-          whileHover="hover"
-          className="px-4 line-clamp-1 "
-        >
-          <NavLink
-            className="[text-shadow:_0px_1px_6px_#f2f2f4]"
-            to="/crowdfunding"
+        {routes.map((route) => (
+          <motion.li
+            key={route.id}
+            variants={variants}
+            whileHover="hover"
+            className="px-4 line-clamp-1 text-shadow"
           >
-            Crowdfunding
-          </NavLink>
-        </motion.li>
-        <motion.li
-          variants={livariants}
-          whileHover="hover"
-          className="px-4 line-clamp-1 "
-        >
-          <NavLink className="[text-shadow:_0px_1px_6px_#f2f2f4]" to="/events">
-            Events
-          </NavLink>
-        </motion.li>
-        <motion.li
-          variants={livariants}
-          whileHover="hover"
-          className="px-4 line-clamp-1 "
-        >
-          <NavLink
-            className="[text-shadow:_0px_1px_6px_#f2f2f4]"
-            to="/sponsorships"
-          >
-            Sponsorships
-          </NavLink>
-        </motion.li>
-        <motion.li
-          variants={livariants}
-          whileHover="hover"
-          className="px-4 line-clamp-1 "
-        >
-          <NavLink
-            className="[text-shadow:_0px_1px_6px_#f2f2f4]"
-            to="/membership-programs"
-          >
-            Membership Programs
-          </NavLink>
-        </motion.li>
-        <motion.li
-          variants={livariants}
-          whileHover="hover"
-          className="px-4 line-clamp-1 "
-        >
-          <NavLink
-            className="[text-shadow:_0px_1px_6px_#f2f2f4]"
-            to="/awareness-campaigns"
-          >
-            Awareness Campaigns
-          </NavLink>
-        </motion.li>
+            <NavLink
+              className="[text-shadow:_0px_1px_4px_#f2f2f4]"
+              to={route.link}
+            >
+              {route.textContent}
+            </NavLink>
+          </motion.li>
+        ))}
       </ul>
     </nav>
   );
