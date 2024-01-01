@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 import DropDownMenu from "./DropDownMenu";
 import useDropDownMenu from "../hooks/use-dropDownMenu";
+import { useSelector } from "react-redux";
 
 const allRoutes = [
   { id: 1, link: "crowdfunding", textContent: "Crowdfunding" },
@@ -19,19 +20,13 @@ const allRoutes = [
  * @returns {JSX.Element} - The rendered component.
  */
 function FundraiserMainNavigation() {
-  /**
-   * Array of route information.
-   * @type {Array}
-   */
-  const [routes, setRoutes] = useState(allRoutes);
-
   const [arrowAnimationValues, setArrowAnimationValues] = useState({
     rotation: 270,
     damping: 5,
     delay: 0.1,
   });
 
-  const { dropDownMenu } = useDropDownMenu(setRoutes, allRoutes);
+  const { dropdown: dropDownMenu, routes } = useDropDownMenu();
 
   /**
    * Variants for the hover animation.
@@ -76,7 +71,7 @@ function FundraiserMainNavigation() {
                 className="[text-shadow:_0px_1px_4px_#f2f2f4]"
                 to={route.link}
               >
-                {route.textContent}
+                {route.title}
               </NavLink>
             </motion.li>
           ))}

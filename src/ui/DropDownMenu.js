@@ -5,6 +5,7 @@ import arrowActive from "../assets/icons/arrow-down-active.png";
 import arrowDisabled from "../assets/icons/arrow-down-disabled.png";
 import arrowMenuAttach from "../assets/icons/arrow-down-MenuAttach.png";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const activeMenuAnimation = {
   rotation: 270,
@@ -34,8 +35,8 @@ const menuVariants = {
 
 const menuItemVariants = {
   hidden: {
-    x: 40,
-    opacity: 0,
+    x: 60,
+    opacity: 0.5,
   },
   visible: {
     x: 0,
@@ -55,6 +56,7 @@ function DropDownMenu({
    * Removing border of last drop menu item
    */
   const dropDownMenuRef = useRef(null);
+  const dropdown = useSelector((state) => state.primaryRoutes.dropdown);
 
   useEffect(() => {
     if (dropDownMenuRef) {
@@ -62,7 +64,7 @@ function DropDownMenu({
       if (dropDownMenu && dropDownMenu.lastChild)
         dropDownMenu.lastChild.style.borderBottom = 0;
     }
-  }, [isMenuActive]);
+  }, [isMenuActive, dropdown]);
 
   /**
    * Variants for the hover animation.
@@ -164,7 +166,7 @@ function DropDownMenu({
                       transition: { staggerChildren: 0.07 },
                     },
                   }}
-                  className="min-w-[280px] p-3 pb-0 rounded-md mt-5 border-[#cfcfcf] bg-lightBg border-[1px] text-text"
+                  className="min-w-[280px] p-3 rounded-md mt-5 border-[#cfcfcf] bg-lightBg border-[1px] text-text"
                 >
                   {dropDownMenu.map((element) => {
                     return (
@@ -178,7 +180,7 @@ function DropDownMenu({
                         }}
                         className="border-b-2 line-clamp-1 "
                       >
-                        <Link to={element.link}>{element.textContent}</Link>
+                        <Link to={element.link}>{element.title}</Link>
                       </motion.li>
                     );
                   })}

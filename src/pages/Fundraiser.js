@@ -13,7 +13,7 @@ function Fundraiser() {
       {/* Header Section */}
       <header className="flex justify-between bg-text text-bg min-h-16">
         {/* Logo */}
-        <button className="min-h-full font-roboto font-bold text-2xl px-9 w-1/4 text-left [text-shadow:_0px_2px_3px_#f2f2f4]">
+        <button className="min-h-full font-roboto font-bold text-2xl px-8 text-left [text-shadow:_0px_2px_3px_#f2f2f4]">
           SupportSphere
         </button>
         {/* Main Navigation */}
