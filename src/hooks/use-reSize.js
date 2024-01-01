@@ -3,7 +3,7 @@ import _debounce from "lodash/debounce";
 import { useDispatch, useSelector } from "react-redux";
 import { primaryRouteActions } from "../store/crowdfunding";
 
-function useDropDownMenu() {
+function useReSize() {
   const primaryRoutes = useSelector((state) => state.primaryRoutes);
   const dropdown = primaryRoutes.dropdown;
   const routes = primaryRoutes.nav;
@@ -20,7 +20,7 @@ function useDropDownMenu() {
         dispatch(primaryRouteActions.fillDropDown());
         dispatch(primaryRouteActions.checkedAt("sm"));
       } else if (window.innerWidth < 800) {
-        if (primaryRoutesLength !== 2) {
+        if (primaryRoutesLength !== 3) {
           dispatch(primaryRouteActions.addNavItem(2));
           dispatch(primaryRouteActions.addDropDownItem(3));
         }
@@ -51,4 +51,4 @@ function useDropDownMenu() {
   return returnValue;
 }
 
-export default useDropDownMenu;
+export default useReSize;

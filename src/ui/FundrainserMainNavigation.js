@@ -3,16 +3,7 @@ import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import DropDownMenu from "./DropDownMenu";
-import useDropDownMenu from "../hooks/use-dropDownMenu";
-import { useSelector } from "react-redux";
-
-const allRoutes = [
-  { id: 1, link: "crowdfunding", textContent: "Crowdfunding" },
-  { id: 2, link: "events", textContent: "Events" },
-  { id: 3, link: "sponsorships", textContent: "Sponsorships" },
-  { id: 4, link: "membership-programs", textContent: "Membership Programs" },
-  { id: 5, link: "awareness-campaigns", textContent: "Awareness Campaigns" },
-];
+import useReSize from "../hooks/use-reSize";
 
 /**
  * Component for the main navigation in the Fundraiser page.
@@ -26,7 +17,7 @@ function FundraiserMainNavigation() {
     delay: 0.1,
   });
 
-  const { dropdown: dropDownMenu, routes } = useDropDownMenu();
+  const { dropdown: dropDownMenu, routes } = useReSize();
 
   /**
    * Variants for the hover animation.

@@ -35,8 +35,8 @@ const menuVariants = {
 
 const menuItemVariants = {
   hidden: {
-    x: 60,
-    opacity: 0.5,
+    x: 50,
+    opacity: 0.2,
   },
   visible: {
     x: 0,
@@ -146,12 +146,7 @@ function DropDownMenu({
                 initial="hidden"
                 animate="visible"
                 className="absolute -top-2 right-0 shadow-2xl overflow-x-hidden overflow-y-auto z-10"
-                transition={{ staggerChildren: 1 }}
-                exit={{
-                  x: 50,
-                  opacity: 0,
-                  transition: { duration: 0.8 },
-                }}
+                exit={{ opacity: 0, transition: { duration: 0.9 } }}
               >
                 <motion.img
                   src={arrowMenuAttach}
@@ -175,8 +170,8 @@ function DropDownMenu({
                         variants={menuItemVariants}
                         exit={{
                           x: 20,
-                          opacity: 0,
-                          transition: { duration: 1 },
+                          opacity: 0.2,
+                          transition: { duration: 0.5 },
                         }}
                         className="border-b-2 line-clamp-1 "
                       >
