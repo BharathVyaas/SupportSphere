@@ -9,8 +9,7 @@ function CrowdFunding() {
           id="1"
           title="This is my Portfolio"
           img={test}
-          progress="75"
-          raised="2000"
+          raised="1500"
           needed="5000"
         />
       </div>
@@ -19,8 +18,7 @@ function CrowdFunding() {
           id="2"
           title="This is my Portfolio"
           img={test}
-          progress="10"
-          raised="2000"
+          raised="5200"
           needed="5000"
         />
       </div>
@@ -29,8 +27,7 @@ function CrowdFunding() {
           id="3"
           title="This is my Portfolio"
           img={test}
-          progress="35"
-          raised="2000"
+          raised="2400"
           needed="5000"
         />
       </div>
@@ -39,8 +36,7 @@ function CrowdFunding() {
           id="4"
           title="This is my Portfolio"
           img={test}
-          progress="90"
-          raised="2000"
+          raised="3600"
           needed="5000"
         />
       </div>
@@ -49,8 +45,7 @@ function CrowdFunding() {
           id="5"
           title="This is my Portfolio"
           img={test}
-          progress="84"
-          raised="2000"
+          raised="4800"
           needed="5000"
         />
       </div>
@@ -59,8 +54,7 @@ function CrowdFunding() {
           id="6"
           title="This is my Portfolio"
           img={test}
-          progress="29"
-          raised="2000"
+          raised="1400"
           needed="5000"
         />
       </div>

@@ -52,7 +52,7 @@ export function Card(props) {
   const id = props.id;
   const title = props.title;
   const img = props.img;
-  const progress = Math.floor(props.progress);
+  const progress = Math.floor((props.raised / props.needed) * 100);
   const raised = Number(props.raised).toLocaleString("en-US");
   const needed = Number(props.needed).toLocaleString("en-US");
 
