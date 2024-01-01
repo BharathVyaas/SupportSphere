@@ -19,11 +19,6 @@ function Fundraiser() {
         {/* Main Navigation */}
         <FundraiserMainNavigation />
         {/* User Actions */}
-        <aside className="min-h-full text-[1.1rem] me-2 grid place-content-center">
-          <button className="px-10 py-[.3rem] border-[1px] boreder-text [text-shadow:_0_2px_3px_#f2f2f4] [box-shadow:_1px_2px_4px_#f2f2f4]">
-            Login
-          </button>
-        </aside>
       </header>
 
       {/* Main Content Section */}
