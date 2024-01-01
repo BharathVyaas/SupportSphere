@@ -8,6 +8,7 @@ module.exports = {
       },
       colors: {
         bg: "#f2f2f4",
+        lightBg: "#ecf0f1",
         text: "#320763",
         lightText: "#32076350",
         accent: "#3498db",
