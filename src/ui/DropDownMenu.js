@@ -48,11 +48,16 @@ function DropDownMenu({ arrowAnimationValues, setArrowAnimationValues }) {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [isMenuAvailable, setIsMenuAvailable] = useState(true);
 
+  const dropdown = useSelector((state) => state.primaryRoutes.dropdown);
+
+  useEffect(() => {
+    setIsMenuAvailable(dropdown && dropdown.length);
+  }, [dropdown]);
+
   /**
    * Removing border of last drop menu item
    */
   const dropDownMenuRef = useRef(null);
-  const dropdown = useSelector((state) => state.primaryRoutes.dropdown);
 
   useEffect(() => {
     if (dropDownMenuRef) {
@@ -108,11 +113,11 @@ function DropDownMenu({ arrowAnimationValues, setArrowAnimationValues }) {
               }
             }
           }}
+          disabled={!isMenuAvailable}
         >
-          {isMenuAvailable && (
+          {isMenuAvailable ? (
             <img src={arrowActive} alt="arrow" width="14" height="15" />
-          )}
-          {!isMenuAvailable && (
+          ) : (
             <img
               src={arrowDisabled}
               alt="arrowdisabled"
@@ -157,25 +162,25 @@ function DropDownMenu({ arrowAnimationValues, setArrowAnimationValues }) {
                       transition: { staggerChildren: 0.07 },
                     },
                   }}
-                  className="min-w-[280px] p-3 rounded-md mt-5 border-[#cfcfcf] bg-lightBg border-[1px] text-text"
+                  className="min-w-[240px] p-3 rounded-md mt-5 border-[#cfcfcf] bg-lightBg border-[1px] text-text"
                 >
-                  {dropdown.map((element) => {
-                    return (
-                      <AnimatePresence key={element.id}>
+                  <AnimatePresence>
+                    {dropdown.map((element) => {
+                      return (
                         <motion.li
+                          key={element.id}
                           variants={menuItemVariants}
                           exit={{
-                            x: 20,
+                            x: 5,
                             opacity: 0.2,
-                            transition: { duration: 1 },
                           }}
                           className="border-b-2 line-clamp-1 "
                         >
                           <Link to={element.link}>{element.title}</Link>
                         </motion.li>
-                      </AnimatePresence>
-                    );
-                  })}
+                      );
+                    })}
+                  </AnimatePresence>
                 </motion.ul>
               </motion.section>
             </aside>

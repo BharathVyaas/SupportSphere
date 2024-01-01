@@ -17,7 +17,7 @@ function FundraiserMainNavigation() {
     delay: 0.1,
   });
 
-  const { dropdown: dropDownMenu, routes } = useReSize();
+  const { dropdown: dropDownMenu, nav: routes } = useReSize();
 
   /**
    * Variants for the hover animation.
