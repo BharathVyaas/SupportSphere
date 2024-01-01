@@ -44,11 +44,7 @@ const menuItemVariants = {
   },
 };
 
-function DropDownMenu({
-  arrowAnimationValues,
-  setArrowAnimationValues,
-  dropDownMenu,
-}) {
+function DropDownMenu({ arrowAnimationValues, setArrowAnimationValues }) {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [isMenuAvailable, setIsMenuAvailable] = useState(true);
 
@@ -163,20 +159,21 @@ function DropDownMenu({
                   }}
                   className="min-w-[280px] p-3 rounded-md mt-5 border-[#cfcfcf] bg-lightBg border-[1px] text-text"
                 >
-                  {dropDownMenu.map((element) => {
+                  {dropdown.map((element) => {
                     return (
-                      <motion.li
-                        key={element.id}
-                        variants={menuItemVariants}
-                        exit={{
-                          x: 20,
-                          opacity: 0.2,
-                          transition: { duration: 0.5 },
-                        }}
-                        className="border-b-2 line-clamp-1 "
-                      >
-                        <Link to={element.link}>{element.title}</Link>
-                      </motion.li>
+                      <AnimatePresence key={element.id}>
+                        <motion.li
+                          variants={menuItemVariants}
+                          exit={{
+                            x: 20,
+                            opacity: 0.2,
+                            transition: { duration: 1 },
+                          }}
+                          className="border-b-2 line-clamp-1 "
+                        >
+                          <Link to={element.link}>{element.title}</Link>
+                        </motion.li>
+                      </AnimatePresence>
                     );
                   })}
                 </motion.ul>

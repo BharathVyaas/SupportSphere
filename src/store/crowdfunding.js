@@ -38,17 +38,19 @@ const primaryRouteSlice = createSlice({
       const dropDownLength = state.dropdown.length;
       let routesLength = state.routes.length;
       const list = [];
-      if (state.lastCheckedAt !== "sm")
-        if (dropDownLength + action.payload > routesLength)
-          throw new Error(
-            `Index Overflow addDropDownItem ${
-              action.payload
-            } (limit ${routesLength} your are setting ${
-              dropDownLength + action.payload
-            }`
-          );
+      console.log(state.lastCheckedAt);
+      if (state.lastCheckedAt !== "xsm")
+        if (state.lastCheckedAt !== action.payload.id)
+          if (dropDownLength + action.payload.data > routesLength)
+            throw new Error(
+              `Index Overflow addDropDownItem ${
+                action.payload.data
+              } (limit ${routesLength} your are setting ${
+                dropDownLength + action.payload.data
+              }`
+            );
 
-      for (let i = action.payload; i >= 1; i--) {
+      for (let i = action.payload.data; i >= 1; i--) {
         const n = 5 - i;
         list.push(state.routes[n]);
       }
