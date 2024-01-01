@@ -164,13 +164,19 @@ function FundraiserMainNavigation() {
                   variants={menuVariants}
                   initial="hidden"
                   animate="visible"
-                  className="z-10 absolute -top-2 right-0 overflow-x-hidden overflow-y-auto"
+                  className="absolute -top-2 right-0 shadow-2xl overflow-x-hidden overflow-y-auto z-10"
                   transition={{ staggerChildren: 1 }}
+                  exit={{
+                    x: 50,
+                    opacity: 0,
+                    transition: { duration: 0.8 },
+                  }}
                 >
-                  <img
+                  <motion.img
                     src={arrowMenuAttach}
                     width="30"
                     className="absolute right-0 rotate-180 pb-[.1rem]"
+                    exit={{ opacity: 0, duration: 0 }}
                   />
                   <motion.ul
                     variants={{
@@ -178,46 +184,46 @@ function FundraiserMainNavigation() {
                         transition: { staggerChildren: 0.07 },
                       },
                     }}
-                    className="min-w-[280px] p-3 pb-0 rounded-md mt-5 shadow-2xl border-[#cfcfcf] bg-lightBg border-[1px] text-text"
+                    className="min-w-[280px] p-3 pb-0 rounded-md mt-5 border-[#cfcfcf] bg-lightBg border-[1px] text-text"
                   >
                     <motion.li
                       variants={menuItemVariants}
-                      exit={{ x: 30, opacity: 0 }}
+                      exit={{ x: 20, opacity: 0, transition: { duration: 1 } }}
                       className="border-b-2 line-clamp-1"
                     >
                       This is Test
                     </motion.li>
                     <motion.li
                       variants={menuItemVariants}
-                      exit={{ x: 30, opacity: 0 }}
+                      exit={{ x: 20, opacity: 0, transition: { duration: 1 } }}
                       className="border-b-2 line-clamp-1 "
                     >
                       This is also a Test
                     </motion.li>
                     <motion.li
                       variants={menuItemVariants}
-                      exit={{ x: 30, opacity: 0 }}
+                      exit={{ x: 20, opacity: 0, transition: { duration: 1 } }}
                       className="border-b-2 line-clamp-1 "
                     >
                       This is Test
                     </motion.li>
                     <motion.li
                       variants={menuItemVariants}
-                      exit={{ x: 30, opacity: 0 }}
+                      exit={{ x: 20, opacity: 0, transition: { duration: 1 } }}
                       className="border-b-2 line-clamp-1 "
                     >
                       This is also a Test
                     </motion.li>
                     <motion.li
                       variants={menuItemVariants}
-                      exit={{ x: 30, opacity: 0 }}
+                      exit={{ x: 20, opacity: 0, transition: { duration: 1 } }}
                       className="border-b-2 line-clamp-1 "
                     >
                       This is Test
                     </motion.li>
                     <motion.li
                       variants={menuItemVariants}
-                      exit={{ x: 30, opacity: 0 }}
+                      exit={{ x: 20, opacity: 0, transition: { duration: 1 } }}
                       className="border-b-2 line-clamp-1 "
                     >
                       This is also a Test
