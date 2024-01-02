@@ -7,18 +7,30 @@ import arrowMenuAttach from "../assets/icons/arrow-down-MenuAttach.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+/**
+ * Animation values for an active menu.
+ * @type {Object}
+ */
 const activeMenuAnimation = {
   rotation: 270,
   damping: 6,
   delay: 0,
 };
 
+/**
+ * Animation values for an open menu.
+ * @type {Object}
+ */
 const openMenuAnimation = {
   rotation: 0,
   damping: 9,
   delay: 0,
 };
 
+/**
+ * Variants for the menu animations.
+ * @type {Object}
+ */
 const menuVariants = {
   hidden: {
     scale: 0,
@@ -33,6 +45,10 @@ const menuVariants = {
   },
 };
 
+/**
+ * Variants for menu item animations.
+ * @type {Object}
+ */
 const menuItemVariants = {
   hidden: {
     x: -50,
@@ -44,12 +60,25 @@ const menuItemVariants = {
   },
 };
 
+/**
+ * Variants for the menu container animations.
+ * @type {Object}
+ */
 const menuContainerVariants = {
   visible: {
     transition: { staggerChildren: 0.07 },
   },
 };
 
+/**
+ * Component for rendering a dropdown menu.
+ * @component
+ * @param {Object} props - Component props.
+ * @param {Object} props.arrowAnimationValues - Animation values for the arrow.
+ * @param {Function} props.setArrowAnimationValues - Function to set arrow animation values.
+ * @param {number} props.dropdownLength - Length of the dropdown menu.
+ * @returns {JSX.Element} - The rendered component.
+ */
 function DropDownMenu({
   arrowAnimationValues,
   setArrowAnimationValues,
@@ -71,7 +100,7 @@ function DropDownMenu({
   }, [dropdown]);
 
   /**
-   * Removing border of last drop menu item
+   * Removing border of the last drop menu item.
    */
   const dropDownMenuRef = useRef(null);
 
@@ -83,8 +112,11 @@ function DropDownMenu({
     }
   }, [isMenuActive, dropdown]);
 
+  // ------
+
+  // Using State So Had to declare variants inside function.
   /**
-   * Variants for the hover animation.
+   * Variants for the hover and arrow animations.
    * @type {Object}
    */
   const variants = {
@@ -111,8 +143,11 @@ function DropDownMenu({
     },
   };
 
+  // ------
+
   return (
     <>
+      {/* Drop Down Trigger */}
       <li className="grid place-content-center ml-1 p-2-hidden">
         <motion.button
           variants={variants}
@@ -131,6 +166,7 @@ function DropDownMenu({
           }}
           disabled={!isMenuAvailable}
         >
+          {/* Arrow Img */}
           {isMenuAvailable ? (
             <img src={arrowActive} alt="arrow" width="14" height="15" />
           ) : (
@@ -142,9 +178,11 @@ function DropDownMenu({
             />
           )}
         </motion.button>
+        {/* Drop Down section */}
         <AnimatePresence>
           {isMenuAvailable && isMenuActive && (
             <aside className="absolute right-[10rem] top-[60%]">
+              {/* Icon Creater FlatIcon */}
               <div className="hidden">
                 Icons made by
                 <a
@@ -158,6 +196,8 @@ function DropDownMenu({
                   www.flaticon.com'
                 </a>
               </div>
+              {/* End Creater */}
+              {/* ----- Drop Down Menu ----- */}
               <motion.section
                 variants={menuVariants}
                 initial="hidden"
@@ -165,12 +205,14 @@ function DropDownMenu({
                 className="absolute -top-2 right-0 shadow-2xl overflow-x-hidden overflow-y-auto z-10"
                 exit={{ opacity: 0, transition: { duration: 0.9 } }}
               >
+                {/* Img used as style for box white arrow attached on top of box */}
                 <motion.img
                   src={arrowMenuAttach}
                   width="30"
                   className="absolute right-0 rotate-180 pb-[.1rem]"
                   exit={{ opacity: 0, duration: 0 }}
                 />
+                {/* Drop Down Menu List */}
                 <motion.ul
                   ref={dropDownMenuRef}
                   variants={menuContainerVariants}

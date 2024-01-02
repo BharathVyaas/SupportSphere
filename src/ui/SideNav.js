@@ -2,21 +2,39 @@ import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
-import arrow from "../assets/icons/arrow-down-active.png";
+import arrowIcon from "../assets/icons/arrow-down-active.png";
 
 import { sideNavContext } from "../context/sideNav";
 
+/**
+ * Variants for animating the title of each side navigation item.
+ * @type {Object}
+ */
 const titleVariants = {
   hidden: { opacity: 0.7, x: -50 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
 };
 
+/**
+ * Variants for animating the list of side navigation items.
+ * @type {Object}
+ */
 const listVariants = {
   visible: { transition: { staggerChildren: 0.06 } },
 };
 
+/**
+ * Component representing the side navigation bar.
+ * @component
+ * @returns {JSX.Element} The rendered JSX element for the SideNav component.
+ */
 function SideNav() {
   const { pathname } = useLocation();
+
+  /**
+   * Array of side navigation items.
+   * @type {Array.<Object>}
+   */
   const sideNavList = [
     { id: 1, link: "medical-expenses", title: "Medical Expenses" },
     { id: 2, link: "education-fund", title: "Education Fund" },
@@ -29,6 +47,10 @@ function SideNav() {
     },
   ];
 
+  /**
+   * Side navigation context for controlling the visibility of the side navigation bar.
+   * @type {Object}
+   */
   const { showSideNav, setShowSideNav } = useContext(sideNavContext);
 
   return (
@@ -52,7 +74,7 @@ function SideNav() {
               <motion.img
                 animate={{ rotate: 90, x: -4 }}
                 exit={{ rotate: 270, x: 0 }}
-                src={arrow}
+                src={arrowIcon}
                 alt="arrow"
                 width="20"
                 height="15"
@@ -98,7 +120,7 @@ function SideNav() {
           >
             <motion.img
               animate={{ rotate: 270 }}
-              src={arrow}
+              src={arrowIcon}
               alt="arrow"
               width="20"
               height="15"

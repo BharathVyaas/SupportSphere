@@ -11,16 +11,30 @@ import useReSize from "../hooks/use-reSize";
  * @returns {JSX.Element} - The rendered component.
  */
 function FundraiserMainNavigation() {
+  /**
+   * State for arrow animation values.
+   * @type {Object}
+   * @property {number} rotation - Rotation value for arrow animation.
+   * @property {number} damping - Damping value for arrow animation.
+   * @property {number} delay - Delay value for arrow animation.
+   */
   const [arrowAnimationValues, setArrowAnimationValues] = useState({
     rotation: 270,
     damping: 5,
     delay: 0.1,
   });
 
+  /**
+   * Hook for handling dropdown and navigation resizing.
+   * @type {Object}
+   * @property {Object[]} dropdown - Dropdown menu data.
+   * @property {Object[]} nav - Navigation routes data.
+   * @property {number} dropdownLength - Length of the dropdown menu.
+   */
   const { dropdown: dropDownMenu, nav: routes, dropdownLength } = useReSize();
 
   /**
-   * Variants for the hover animation.
+   * Variants for the hover animation and arrow animations.
    * @type {Object}
    */
   const variants = {

@@ -2,15 +2,31 @@ import { useCallback, useState } from "react";
 
 /**
  * Class representing a store for progress-related data.
+ * @class
  */
 class Store {
   /**
-   * Create a Store.
+   * Create a Store instance.
+   * @constructor
    * @param {string} id - The identifier for the progress container.
    */
   constructor(id) {
+    /**
+     * The unique identifier for the progress container.
+     * @type {string}
+     */
     this.id = id;
+
+    /**
+     * Cached keyframes for the animation.
+     * @type {string|undefined}
+     */
     this.keyframes = undefined;
+
+    /**
+     * Cached reference to the progress container element.
+     * @type {HTMLElement|undefined}
+     */
     this.progressContainer = undefined;
   }
 
@@ -19,24 +35,26 @@ class Store {
    * @returns {HTMLElement|null} - The progress container element or null if not found.
    */
   getProgressContainer() {
-    if (!this.progressContainer)
+    if (!this.progressContainer) {
       this.progressContainer = document.querySelector(
         `#progressContainer${this.id}`
       );
+    }
 
     return this.progressContainer;
   }
 
   /**
    * Get or generate keyframes for a given animation.
-   * @param {boolean} stale - Flag to refetch data or Change animation
+   * @param {boolean} stale - Flag to refetch data or change animation.
    * @param {string} animationName - The name of the animation.
    * @param {number} progress - The progress percentage.
    * @returns {string} - The keyframes for the translation animation.
    */
   getKeyframes(stale, animationName, progress) {
-    if (!this.keyframes || stale)
+    if (!this.keyframes || stale) {
       this.keyframes = generateKeyframes(animationName, progress);
+    }
 
     return this.keyframes;
   }
@@ -74,7 +92,6 @@ const generateKeyframes = (animationName, progress) => {
     keyframes += createFrame(percent, x);
     percent += 5;
     x += x <= progress ? progress * 0.05 : 0;
-    //console.log(progress, percent, x);
   }
 
   keyframes += `}`;
@@ -93,6 +110,7 @@ export function useProgress(progress, id) {
 
   /**
    * Updates the background image of the progress container based on the progress percentage.
+   * @function
    * @returns {void}
    */
   const updateProgress = useCallback(() => {
@@ -111,6 +129,7 @@ export function useProgress(progress, id) {
 
   /**
    * Animates the progress container using keyframes.
+   * @function
    * @returns {void}
    */
   const animateProgress = useCallback(() => {
