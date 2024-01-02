@@ -57,7 +57,7 @@ function useReSize() {
    */
   useEffect(() => {
     resizeHandler();
-  }, []);
+  }, [resizeHandler]);
 
   useEffect(() => {
     window.addEventListener("resize", resizeHandler);

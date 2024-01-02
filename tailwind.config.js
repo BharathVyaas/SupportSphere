@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
     extend: {
+      content: {
+        arrow: 'url("./assets/icons/arrow-down-active.png")',
+      },
       textShadow: {
         sm: "0 1px 2px #fff",
       },
@@ -13,6 +16,9 @@ module.exports = {
         lightText: "#32076350",
         accent: "#3498db",
         softPurple: "#d5d8dc",
+        red: "#e74c3c",
+        orange: "#f39c12",
+        purple: "#9b59b6",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
