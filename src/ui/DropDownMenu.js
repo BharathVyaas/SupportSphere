@@ -35,12 +35,18 @@ const menuVariants = {
 
 const menuItemVariants = {
   hidden: {
-    x: 50,
+    x: -50,
     opacity: 0.2,
   },
   visible: {
     x: 0,
     opacity: 1,
+  },
+};
+
+const menuContainerVariants = {
+  visible: {
+    transition: { staggerChildren: 0.07 },
   },
 };
 
@@ -167,11 +173,7 @@ function DropDownMenu({
                 />
                 <motion.ul
                   ref={dropDownMenuRef}
-                  variants={{
-                    visible: {
-                      transition: { staggerChildren: 0.07 },
-                    },
-                  }}
+                  variants={menuContainerVariants}
                   className="min-w-[240px] p-3 rounded-md mt-5 border-[#cfcfcf] bg-lightBg border-[1px] text-text"
                 >
                   <AnimatePresence>
