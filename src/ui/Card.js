@@ -68,20 +68,20 @@ export function Card(props) {
       variants={cardVariants}
       initial="hidden"
       animate="visible"
-      className="inline-block w-[260px] h-[310px] rounded-xl shadow-lg border-solid border-[2px] border-softPurple"
+      className="inline-block w-[280px] h-[310px] rounded-xl shadow-xl border-solid border-[2px] border-softPurple"
     >
       {/* card head */}
-      <figure className="border-b-2 h-[auto] shadow-md relative after:w-[96%] after:absolute after:top-[101%] after:left-[2%] after:h-[0.2rem] after:bg-softPurple">
+      <figure className="border-b-2 border-softPurple h-[auto] shadow-xl rounded-t-xl">
         <img
           src={img}
-          width="260"
+          width="280"
           height="180"
           className="h-[180px] rounded-t-xl"
           alt="test"
         />
       </figure>
       {/* card body */}
-      <figcaption className="mt-3 flex justify-between">
+      <figcaption className="mt-2 flex justify-between">
         <div className="w-full">
           {/* card title */}
           <h2 className="ms-[9%] w-[84%] line-clamp-1" title={title}>

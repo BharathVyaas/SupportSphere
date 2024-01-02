@@ -74,7 +74,7 @@ const generateKeyframes = (animationName, progress) => {
     keyframes += createFrame(percent, x);
     percent += 5;
     x += x <= progress ? progress * 0.05 : 0;
-    console.log(progress, percent, x);
+    //console.log(progress, percent, x);
   }
 
   keyframes += `}`;

@@ -17,7 +17,7 @@ function FundraiserMainNavigation() {
     delay: 0.1,
   });
 
-  const { dropdown: dropDownMenu, nav: routes } = useReSize();
+  const { dropdown: dropDownMenu, nav: routes, dropdownLength } = useReSize();
 
   /**
    * Variants for the hover animation.
@@ -68,6 +68,7 @@ function FundraiserMainNavigation() {
           ))}
         <DropDownMenu
           dropDownMenu={dropDownMenu}
+          dropdownLength={dropdownLength}
           arrowAnimationValues={arrowAnimationValues}
           setArrowAnimationValues={setArrowAnimationValues}
         />

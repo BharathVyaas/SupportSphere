@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import _debounce from "lodash/debounce";
 import { useDispatch, useSelector } from "react-redux";
 import { primaryRouteActions } from "../store/crowdfunding";
@@ -8,9 +8,11 @@ function useReSize() {
   const dropdown = primaryRoutes.dropdown;
   const nav = primaryRoutes.nav;
   const primaryRoutesLength = dropdown.length;
+  const dropdownLength = dropdown.length;
+  const navLength = nav.length;
   const dispatch = useDispatch();
 
-  const resizeHandler = useCallback(
+  const resizeHandler = useMemo(
     () =>
       _debounce(() => {
         if (window.innerWidth < 700) {
@@ -47,12 +49,16 @@ function useReSize() {
           dispatch(primaryRouteActions.checkedAt("xl"));
         }
       }, 500),
-    [primaryRoutesLength, dispatch]
+    [dispatch, primaryRoutesLength]
   );
 
   /**
    * Updating dropDownMenu
    */
+  useEffect(() => {
+    resizeHandler();
+  }, []);
+
   useEffect(() => {
     window.addEventListener("resize", resizeHandler);
 
@@ -60,8 +66,8 @@ function useReSize() {
   }, [resizeHandler]);
 
   const returnValue = useMemo(() => {
-    return { dropdown, nav };
-  }, [dropdown, nav]);
+    return { dropdown, nav, dropdownLength, navLength };
+  }, [dropdown, nav, dropdownLength, navLength]);
   return returnValue;
 }
 

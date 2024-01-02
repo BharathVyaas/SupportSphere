@@ -3,7 +3,7 @@ import test from "../assets/images/test.jpg";
 
 function CrowdFunding() {
   return (
-    <div className="flex flex-wrap">
+    <div className="ms-[260px] flex flex-wrap">
       <div className="m-16">
         <Card
           id="1"

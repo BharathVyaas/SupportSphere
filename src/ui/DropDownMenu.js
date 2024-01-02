@@ -44,9 +44,19 @@ const menuItemVariants = {
   },
 };
 
-function DropDownMenu({ arrowAnimationValues, setArrowAnimationValues }) {
+function DropDownMenu({
+  arrowAnimationValues,
+  setArrowAnimationValues,
+  dropdownLength,
+}) {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [isMenuAvailable, setIsMenuAvailable] = useState(true);
+
+  useEffect(() => {
+    if (dropdownLength < 1) {
+      setIsMenuAvailable(false);
+    }
+  }, [dropdownLength]);
 
   const dropdown = useSelector((state) => state.primaryRoutes.dropdown);
 
@@ -127,7 +137,7 @@ function DropDownMenu({ arrowAnimationValues, setArrowAnimationValues }) {
           )}
         </motion.button>
         <AnimatePresence>
-          {isMenuActive && (
+          {isMenuAvailable && isMenuActive && (
             <aside className="absolute right-[10rem] top-[60%]">
               <div className="hidden">
                 Icons made by
