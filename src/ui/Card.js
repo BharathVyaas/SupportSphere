@@ -123,6 +123,7 @@ export function Card(props) {
           </h2>
           {/* Card Description */}
           <div className="flex justify-between w-[100%]">
+            {/* Progress circle */}
             <div className="w-[26%] grid place-content-end">
               <motion.p
                 variants={cardDescriptionVariants}

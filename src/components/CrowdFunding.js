@@ -1,7 +1,8 @@
 import { Card } from "../ui/Card";
 import testImage from "../assets/images/test.jpg";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { EventEmitter } from "../util";
+import { useSelector } from "react-redux";
 
 /**
  * React component for displaying crowdfunding projects.
@@ -9,107 +10,48 @@ import { EventEmitter } from "../util";
  * @returns {JSX.Element} The rendered React element for crowdfunding.
  */
 function CrowdFunding() {
-  /**
-   * State for managing styles of the crowdfunding component.
-   * @type {string}
-   */
-  const [panelStyles, setPanelStyles] = useState("ms-[260px]");
-  let viewSize = " mt-[5rem] grid grid-cols-";
-  const [resizeStyles, setResizeStyles] = useState(
-    panelStyles + viewSize + "1"
-  );
-
-  /**
-   * Effect hook to handle panel toggle events and update styles accordingly.
-   */
+  const progressRef = useRef();
+  const [count, setCount] = useState();
 
   useEffect(() => {
-    const handleResize = (size) => {
-      if (size === "2xl" || size === "xl") {
-        setResizeStyles(panelStyles + viewSize + 3);
-      } else if (size === "lg" || size === "md") {
-        setResizeStyles(panelStyles + viewSize + 2);
-      } else if (size === "sm") {
-        setResizeStyles(panelStyles + viewSize + 1);
+    const id = setInterval(() => {
+      if (count === 65) {
+        clearInterval(id);
+      } else {
+        setCount((prevCount) => prevCount + 1);
+        progressRef.current.innerHtml = `${count}`;
       }
-      console.log("panelStyles", panelStyles);
-    };
-
-    EventEmitter.on("reSize", handleResize);
-
-    return () => EventEmitter.off("reSize", handleResize);
+    });
   }, []);
 
-  /**
-   * Render the crowdfunding component.
-   * @returns {JSX.Element} The rendered React element.
-   */
   return (
-    <ul className={panelStyles + resizeStyles}>
-      <li className="my-4 mx-auto">
-        <Card
-          id="1"
-          title="My Portfolio Project"
-          img={testImage}
-          raisedAmount="1500"
-          targetAmount="5000"
-        />
-      </li>
-      <li className="my-4 mx-auto">
-        <Card
-          id="2"
-          title="Another Portfolio Project"
-          img={testImage}
-          raisedAmount="5200"
-          targetAmount="5000"
-        />
-      </li>
-      <li className="my-4 mx-auto">
-        <Card
-          id="3"
-          title="This is my Portfolio"
-          img={testImage}
-          targetAmount="5200"
-          raisedAmount="5000"
-        />
-      </li>
-      <li className="my-4 mx-auto">
-        <Card
-          id="4"
-          title="This is my Portfolio"
-          img={testImage}
-          raisedAmount="2300"
-          targetAmount="5000"
-        />
-      </li>
-      <li className="my-4 mx-auto">
-        <Card
-          id="5"
-          title="This is my Portfolio"
-          img={testImage}
-          raisedAmount="3600"
-          targetAmount="5000"
-        />
-      </li>
-      <li className="my-4 mx-auto">
-        <Card
-          id="6"
-          title="This is my Portfolio"
-          img={testImage}
-          raisedAmount="4800"
-          targetAmount="5000"
-        />
-      </li>
-      <li className="my-4 mx-auto">
-        <Card
-          id="7"
-          title="This is my Portfolio"
-          img={testImage}
-          raisedAmount="1400"
-          targetAmount="5000"
-        />
-      </li>
-    </ul>
+    <>
+      <div className="w-full h-full mt-24">
+        <div className="skill">
+          <div className="outer">
+            <div className="inner">
+              <div ref={progressRef} id="number">
+                65%
+              </div>
+            </div>
+          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            width="160px"
+            height="160px"
+          >
+            <defs>
+              <linearGradient id="GradientColor">
+                <stop offset="0%" stopColor="#DA2277" />
+                <stop offset="100%" stopColor="#9733EE" />
+              </linearGradient>
+            </defs>
+            <circle cx="80" cy="80" r="70" strokeLinecap="round" />
+          </svg>
+        </div>
+      </div>
+    </>
   );
 }
 
