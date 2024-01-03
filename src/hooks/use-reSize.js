@@ -43,7 +43,7 @@ function useReSize() {
           const payload = type;
           EventEmitter.emit("reSize", { type, payload });
         }
-      }, 500),
+      }, 10),
     []
   );
 

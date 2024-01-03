@@ -1,6 +1,6 @@
 import { Card } from "../ui/Card";
 import testImage from "../assets/images/test.jpg";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { EventEmitter } from "../util";
 
 /**
@@ -13,37 +13,55 @@ function CrowdFunding() {
    * State for managing styles of the crowdfunding component.
    * @type {string}
    */
-  const [panelStyles, setPanelStyles] = useState("ms-[260px]");
+  const [panelStyles, setPanelStyles] = useState(true);
   let viewSize = " mt-[5rem] grid grid-cols-";
   const [resizeStyles, setResizeStyles] = useState(
-    panelStyles + viewSize + "1"
+    panelStyles ? "ms-[260px] " : "ms-[0px] " + viewSize + "1"
   );
 
+  useEffect(() => {
+    const handlePanelToggle = (showPanel) => {
+      setPanelStyles(showPanel);
+    };
+
+    EventEmitter.on("togglePanel", handlePanelToggle);
+
+    return () => EventEmitter.off("togglePanel", handlePanelToggle);
+  }, []);
+  const sizes = useRef([]);
   /**
    * Effect hook to handle panel toggle events and update styles accordingly.
    */
   useEffect(() => {
     const handleResize = (size) => {
       if (size === "2xl" || size === "xl") {
-        setResizeStyles(panelStyles + viewSize + 3);
+        sizes.current.push(size);
+        if (panelStyles) setResizeStyles("ms-[260px] " + viewSize + 2);
+        else setResizeStyles("ms-[0px] " + viewSize + 3);
       } else if (size === "lg" || size === "md") {
-        setResizeStyles(panelStyles + viewSize + 2);
-      } else if (size === "sm") {
-        setResizeStyles(panelStyles + viewSize + 1);
+        sizes.current.push(size);
+        if (panelStyles) setResizeStyles("ms-[260px] " + viewSize + 1);
+        else setResizeStyles("ms-[0px] " + viewSize + 2);
+      } else if (size === "sm" || size === "xsm") {
+        sizes.current.push(size);
+        setResizeStyles("ms-[0px] " + viewSize + 1);
       }
     };
+    const length = sizes.current.length - 1;
+    if (sizes.current) handleResize(sizes.current[length]);
 
     EventEmitter.on("reSize", handleResize);
 
     return () => EventEmitter.off("reSize", handleResize);
-  }, []);
+  }, [panelStyles]);
 
   /**
    * Render the crowdfunding component.
    * @returns {JSX.Element} The rendered React element.
    */
   return (
-    <ul className={panelStyles + resizeStyles}>
+    // Tailwind replacement mt-[5rem] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3
+    <ul className={resizeStyles}>
       <li className="my-4 mx-auto">
         <Card
           id="1"
