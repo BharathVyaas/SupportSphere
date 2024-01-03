@@ -90,8 +90,8 @@ const generateKeyframes = (animationName, progress) => {
 
   while (x <= progress) {
     keyframes += createFrame(percent, x);
-    percent += 5;
-    x += x <= progress ? progress * 0.05 : 0;
+    percent += 10;
+    x += x <= progress ? progress * 0.1 : 0;
   }
 
   keyframes += `}`;
@@ -155,7 +155,7 @@ export function useProgress(progress, id) {
         );
       }
 
-      progressContainer.style.animation = `${animationName} 1.3s 1 forwards`;
+      progressContainer.style.animation = `${animationName} .9s 1 forwards`;
     }
   }, [id, progress, store]);
 
