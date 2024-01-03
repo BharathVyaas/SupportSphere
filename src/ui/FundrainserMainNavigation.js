@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import DropDownMenu from "./DropDownMenu";
-import useReSize from "../hooks/use-reSize";
+import useNavList from "../hooks/use-navList";
 
 /**
  * Component for the main navigation in the Fundraiser page.
@@ -31,7 +31,7 @@ function FundraiserMainNavigation() {
    * @property {Object[]} nav - Navigation routes data.
    * @property {number} dropdownLength - Length of the dropdown menu.
    */
-  const { dropdown: dropDownMenu, nav: routes, dropdownLength } = useReSize();
+  const { dropdown: dropDownMenu, nav: routes, dropdownLength } = useNavList();
 
   /**
    * Variants for the hover animation and arrow animations.

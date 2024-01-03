@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import _debounce from "lodash/debounce";
-import { useDispatch, useSelector } from "react-redux";
-import { primaryRouteActions } from "../store/crowdfunding";
+
+import { EventEmitter } from "../util";
 
 /**
  * Custom hook for handling dynamic resizing of navigation elements.
@@ -12,14 +12,6 @@ import { primaryRouteActions } from "../store/crowdfunding";
  * @property {number} navLength - The length of the main navigation.
  */
 function useReSize() {
-  const primaryRoutes = useSelector((state) => state.primaryRoutes);
-  const dropdown = primaryRoutes.dropdown;
-  const nav = primaryRoutes.nav;
-  const primaryRoutesLength = dropdown.length;
-  const dropdownLength = dropdown.length;
-  const navLength = nav.length;
-  const dispatch = useDispatch();
-
   /**
    * Resize handler function, debounced to prevent excessive calls.
    */
@@ -27,48 +19,32 @@ function useReSize() {
     () =>
       _debounce(() => {
         if (window.innerWidth < 500) {
-          console.log("mobile_width");
-        }
-        if (window.innerWidth < 700) {
-          dispatch(primaryRouteActions.setNav([]));
-          dispatch(primaryRouteActions.fillDropDown());
-          dispatch(primaryRouteActions.checkedAt("xsm"));
-          console.log("xsm");
+          const type = "xsm";
+          const payload = "xsm";
+          EventEmitter.emit("reSize", { type, payload });
+        } else if (window.innerWidth < 650) {
+          const type = "sm";
+          const payload = type;
+          EventEmitter.emit("reSize", { type, payload });
         } else if (window.innerWidth < 800) {
-          if (primaryRoutesLength !== 3) {
-            dispatch(primaryRouteActions.addNavItem(2));
-            dispatch(
-              primaryRouteActions.addDropDownItem({ data: 3, id: "sm" })
-            );
-            dispatch(primaryRouteActions.checkedAt("sm"));
-            console.log("sm");
-          }
+          const type = "md";
+          const payload = type;
+          EventEmitter.emit("reSize", { type, payload });
         } else if (window.innerWidth < 1015) {
-          if (primaryRoutesLength !== 2) {
-            dispatch(primaryRouteActions.addNavItem(3));
-            dispatch(
-              primaryRouteActions.addDropDownItem({ data: 2, id: "md" })
-            );
-            dispatch(primaryRouteActions.checkedAt("md"));
-            console.log("md");
-          }
-        } else if (window.innerWidth < 1120) {
-          if (primaryRoutesLength !== 1) {
-            dispatch(primaryRouteActions.addNavItem(4));
-            dispatch(
-              primaryRouteActions.addDropDownItem({ data: 1, id: "lg" })
-            );
-            dispatch(primaryRouteActions.checkedAt("lg"));
-            console.log("lg");
-          }
-        } else if (window.innerHeight < 1150) {
-          dispatch(primaryRouteActions.fillNav());
-          dispatch(primaryRouteActions.setDropDown([]));
-          dispatch(primaryRouteActions.checkedAt("xl"));
-          console.log("xl");
+          const type = "lg";
+          const payload = type;
+          EventEmitter.emit("reSize", { type, payload });
+        } else if (window.innerWidth < 1225) {
+          const type = "xl";
+          const payload = type;
+          EventEmitter.emit("reSize", { type, payload });
+        } else if (window.innerWidth > 1225) {
+          const type = "2xl";
+          const payload = type;
+          EventEmitter.emit("reSize", { type, payload });
         }
       }, 500),
-    [dispatch, primaryRoutesLength]
+    []
   );
 
   /**
@@ -88,11 +64,11 @@ function useReSize() {
   /**
    * Memoized return value to avoid unnecessary re-renders.
    */
-  const returnValue = useMemo(() => {
+  /*   const returnValue = useMemo(() => {
     return { dropdown, nav, dropdownLength, navLength };
   }, [dropdown, nav, dropdownLength, navLength]);
 
-  return returnValue;
+  return returnValue; */
 }
 
 export default useReSize;
