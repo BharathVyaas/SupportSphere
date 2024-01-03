@@ -25,8 +25,9 @@ export class EventConstructor {
 
   constructor() {
     this.#EventEmmiter = mitt();
-    this.#types = ["sideBar"];
-    this.#events = ["togglePanel"];
+    // > 1225 2xl < 1225 xl < 1015 lg < 800 md < 700 sm  < 500 xsm > 500
+    this.#types = ["sideBar", "xsm", "sm", "md", "lg", "xl", "2xl"];
+    this.#events = ["togglePanel", "reSize"];
   }
 
   /**

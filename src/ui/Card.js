@@ -155,6 +155,7 @@ export function Card(props) {
               >
                 Target
               </motion.span>
+              {/* Change this approach - causing startup lag */}
               <motion.span
                 variants={cardDescriptionVariants}
                 className="overflow-hidden w-[90%]"

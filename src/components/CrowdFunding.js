@@ -13,27 +13,31 @@ function CrowdFunding() {
    * State for managing styles of the crowdfunding component.
    * @type {string}
    */
-  const [panelStyles, setPanelStyles] = useState("ms-[260px] flex flex-wrap");
+  const [panelStyles, setPanelStyles] = useState("ms-[260px]");
+  let viewSize = " mt-[5rem] grid grid-cols-";
+  const [resizeStyles, setResizeStyles] = useState(
+    panelStyles + viewSize + "1"
+  );
 
   /**
    * Effect hook to handle panel toggle events and update styles accordingly.
    */
+
   useEffect(() => {
-    /**
-     * Callback function to adjust the panel styles based on the toggle flag.
-     * @param {boolean} showPanel - Flag indicating whether to show or hide the panel.
-     */
-    const handlePanelToggle = (showPanel) => {
-      setPanelStyles(
-        showPanel ? "ms-[260px] flex flex-wrap" : "ms-[0px] flex flex-wrap"
-      );
+    const handleResize = (size) => {
+      if (size === "2xl" || size === "xl") {
+        setResizeStyles(panelStyles + viewSize + 3);
+      } else if (size === "lg" || size === "md") {
+        setResizeStyles(panelStyles + viewSize + 2);
+      } else if (size === "sm") {
+        setResizeStyles(panelStyles + viewSize + 1);
+      }
+      console.log("panelStyles", panelStyles);
     };
 
-    // Subscribe to the 'togglePanel' event
-    EventEmitter.on("togglePanel", handlePanelToggle);
+    EventEmitter.on("reSize", handleResize);
 
-    // Unsubscribe from the 'togglePanel' event when the component unmounts
-    return () => EventEmitter.off("togglePanel", handlePanelToggle);
+    return () => EventEmitter.off("reSize", handleResize);
   }, []);
 
   /**
@@ -41,8 +45,8 @@ function CrowdFunding() {
    * @returns {JSX.Element} The rendered React element.
    */
   return (
-    <div className={panelStyles}>
-      <div className="my-4 mx-auto">
+    <ul className={panelStyles + resizeStyles}>
+      <li className="my-4 mx-auto">
         <Card
           id="1"
           title="My Portfolio Project"
@@ -50,8 +54,8 @@ function CrowdFunding() {
           raisedAmount="1500"
           targetAmount="5000"
         />
-      </div>
-      <div className="my-4 mx-auto">
+      </li>
+      <li className="my-4 mx-auto">
         <Card
           id="2"
           title="Another Portfolio Project"
@@ -59,53 +63,53 @@ function CrowdFunding() {
           raisedAmount="5200"
           targetAmount="5000"
         />
-      </div>
-      <div className="my-4 mx-auto">
-        <Card
-          id="2"
-          title="This is my Portfolio"
-          img={testImage}
-          raised="5200"
-          needed="5000"
-        />
-      </div>
-      <div className="my-4 mx-auto">
+      </li>
+      <li className="my-4 mx-auto">
         <Card
           id="3"
           title="This is my Portfolio"
           img={testImage}
-          raised="2400"
-          needed="5000"
+          targetAmount="5200"
+          raisedAmount="5000"
         />
-      </div>
-      <div className="my-4 mx-auto">
+      </li>
+      <li className="my-4 mx-auto">
         <Card
           id="4"
           title="This is my Portfolio"
           img={testImage}
-          raised="3600"
-          needed="5000"
+          raisedAmount="2300"
+          targetAmount="5000"
         />
-      </div>
-      <div className="my-4 mx-auto">
+      </li>
+      <li className="my-4 mx-auto">
         <Card
           id="5"
           title="This is my Portfolio"
           img={testImage}
-          raised="4800"
-          needed="5000"
+          raisedAmount="3600"
+          targetAmount="5000"
         />
-      </div>
-      <div className="my-4 mx-auto">
+      </li>
+      <li className="my-4 mx-auto">
         <Card
           id="6"
           title="This is my Portfolio"
           img={testImage}
-          raised="1400"
-          needed="5000"
+          raisedAmount="4800"
+          targetAmount="5000"
         />
-      </div>
-    </div>
+      </li>
+      <li className="my-4 mx-auto">
+        <Card
+          id="7"
+          title="This is my Portfolio"
+          img={testImage}
+          raisedAmount="1400"
+          targetAmount="5000"
+        />
+      </li>
+    </ul>
   );
 }
 

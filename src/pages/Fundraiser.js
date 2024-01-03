@@ -29,7 +29,14 @@ function Fundraiser() {
           <SideNav />
         </SideNavProvider>
         <Routes>
-          <Route path="crowdfunding" element={<CrowdFunding />} />
+          <Route
+            path="crowdfunding"
+            element={
+              <SideNavProvider>
+                <CrowdFunding />
+              </SideNavProvider>
+            }
+          />
           {/* Add other routes as needed */}
         </Routes>
       </main>

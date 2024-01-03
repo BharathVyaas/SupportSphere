@@ -1,4 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {
+  addDropDownItem,
+  addNavItem,
+  checkedAt,
+  fillDropDown,
+  fillNav,
+  setDropDown,
+  setNav,
+  updateNav,
+} from "./util/updateNav";
 
 /**
  * Note: This JSDoc documentation covers major properties and methods.
@@ -36,101 +46,21 @@ const primaryRouteSlice = createSlice({
   name: "primaryRoutes",
   initialState: initialState,
   reducers: {
-    /**
-     * Updates the last checked route size.
-     * ```
-     * @param {string} action.payload - The last checked route size.
-     */
-    checkedAt(state, action) {
-      state.lastCheckedAt = action.payload;
-    },
+    updateNav: (state, action) => updateNav(state, action),
 
-    /**
-     * Sets the navigation routes.
-     * ```
-     * @param {Object[]} action.payload - The navigation routes.
-     */
-    setNav(state, action) {
-      state.nav = action.payload;
-    },
+    checkedAt: (state, action) => checkedAt(state, action),
 
-    /**
-     * Fills the navigation routes with the primary routes.
-     * ```
-     */
-    fillNav(state) {
-      state.nav = state.routes;
-    },
+    setNav: (state, action) => setNav(state, action),
 
-    /**
-     * Sets the dropdown routes.
-     * ```
-     * @param {Object[]} action.payload - The dropdown routes.
-     */
-    setDropDown(state, action) {
-      state.dropdown = action.payload;
-    },
+    fillNav: (state) => fillNav(state),
 
-    /**
-     * Fills the dropdown routes with the primary routes.
-     * @param {Object} state - The current state.
-     */
-    fillDropDown(state) {
-      state.dropdown = state.routes;
-    },
+    setDropDown: (state, action) => setDropDown(state, action),
 
-    /**
-     * Adds dropdown items based on the lastCheckedAt value.
-     * ```
-     * @param {Object} action.payload - The dropdown item data.
-     * @param {string} action.payload.id - The id of the dropdown item.
-     * @param {number} action.payload.data - The number of dropdown items to add.
-     * @throws Will throw an error if index overflow occurs.
-     * @returns {Object} - The updated state.
-     */
-    addDropDownItem(state, action) {
-      const dropDownLength = state.dropdown.length;
-      const routesLength = state.routes.length;
-      const list = [];
+    fillDropDown: (state) => fillDropDown(state),
 
-      if (
-        state.lastCheckedAt !== "xsm" &&
-        state.lastCheckedAt !== action.payload.id
-      ) {
-        if (dropDownLength + action.payload.data > routesLength) {
-          throw new Error(
-            `Index Overflow addDropDownItem ${
-              action.payload.data
-            } (limit ${routesLength} you are setting ${
-              dropDownLength + action.payload.data
-            }`
-          );
-        }
-      }
+    addDropDownItem: (state, action) => addDropDownItem(state, action),
 
-      for (let i = action.payload.data; i >= 1; i--) {
-        const n = 5 - i;
-        list.push(state.routes[n]);
-      }
-
-      return { ...state, dropdown: list };
-    },
-
-    /**
-     * Adds navigation items based on the provided payload.
-     * ```
-     * @param {number} action.payload - The number of navigation items to add.
-     * @returns {Object} - The updated state.
-     */
-    addNavItem(state, action) {
-      const list = [];
-
-      for (let i = 0; i <= action.payload - 1; i++) {
-        list.push(state.routes[i]);
-      }
-
-      return { ...state, nav: list };
-    },
+    addNavItem: (state, action) => addNavItem(state, action),
   },
 });
 
