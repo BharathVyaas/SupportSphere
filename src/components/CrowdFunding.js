@@ -13,26 +13,20 @@ function CrowdFunding() {
    * State for managing styles of the crowdfunding component.
    * @type {string}
    */
-  const [panelStyles, setPanelStyles] = useState("ms-[260px] flex flex-wrap");
+  const [panelStyles, setPanelStyles] = useState("ms-[260px] grid grid-cols-2");
 
   /**
    * Effect hook to handle panel toggle events and update styles accordingly.
    */
   useEffect(() => {
-    /**
-     * Callback function to adjust the panel styles based on the toggle flag.
-     * @param {boolean} showPanel - Flag indicating whether to show or hide the panel.
-     */
     const handlePanelToggle = (showPanel) => {
       setPanelStyles(
-        showPanel ? "ms-[260px] flex flex-wrap" : "ms-[0px] flex flex-wrap"
+        showPanel ? "ms-[260px] grid grid-cols-2" : "ms-[0px] grid grid-cols-3"
       );
     };
 
-    // Subscribe to the 'togglePanel' event
     EventEmitter.on("togglePanel", handlePanelToggle);
 
-    // Unsubscribe from the 'togglePanel' event when the component unmounts
     return () => EventEmitter.off("togglePanel", handlePanelToggle);
   }, []);
 
