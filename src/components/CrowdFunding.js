@@ -18,7 +18,7 @@ function CrowdFunding() {
           id="2"
           title="This is my Portfolio"
           img={test}
-          raised="5200"
+          raised="4400"
           needed="5000"
         />
       </div>
@@ -27,7 +27,7 @@ function CrowdFunding() {
           id="3"
           title="This is my Portfolio"
           img={test}
-          raised="2400"
+          raised="2100"
           needed="5000"
         />
       </div>
@@ -36,7 +36,7 @@ function CrowdFunding() {
           id="4"
           title="This is my Portfolio"
           img={test}
-          raised="3600"
+          raised="3000"
           needed="5000"
         />
       </div>

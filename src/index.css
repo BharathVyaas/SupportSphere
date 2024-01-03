@@ -57,6 +57,9 @@
       ),
       conic-gradient(#32076350 80%, #ecf0f1 90%);
   }
+  .progress-container {
+    transform: translateZ(0);
+  }
 }
 
 /*

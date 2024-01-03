@@ -89,7 +89,8 @@ export function Card(props) {
           </h2>
           {/* card description */}
           <div className="flex justify-between w-[100%]">
-            <div className="w-[26%] grid place-content-end">
+            {/* ProgressContainer */}
+            <div className=".progress-container w-[26%] grid place-content-end">
               <motion.p
                 variants={cardDescriptionVariants}
                 id={`progressContainer${id}`}

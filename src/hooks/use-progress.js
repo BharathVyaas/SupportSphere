@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef } from "react";
 
 /**
  * Class representing a store for progress-related data.
@@ -19,24 +19,26 @@ class Store {
    * @returns {HTMLElement|null} - The progress container element or null if not found.
    */
   getProgressContainer() {
-    if (!this.progressContainer)
+    if (!this.progressContainer) {
       this.progressContainer = document.querySelector(
         `#progressContainer${this.id}`
       );
+    }
 
     return this.progressContainer;
   }
 
   /**
    * Get or generate keyframes for a given animation.
-   * @param {boolean} stale - Flag to refetch data or Change animation
+   * @param {boolean} stale - Flag to refetch data or change animation.
    * @param {string} animationName - The name of the animation.
    * @param {number} progress - The progress percentage.
    * @returns {string} - The keyframes for the translation animation.
    */
   getKeyframes(stale, animationName, progress) {
-    if (!this.keyframes || stale)
+    if (!this.keyframes || stale) {
       this.keyframes = generateKeyframes(animationName, progress);
+    }
 
     return this.keyframes;
   }
@@ -66,15 +68,11 @@ const createFrame = (percent, x) => {
  * @returns {string} - The keyframes for the translation animation.
  */
 const generateKeyframes = (animationName, progress) => {
-  let x = 0;
-  let percent = 0;
   let keyframes = `@keyframes ${animationName} {`;
 
-  while (x <= progress) {
+  for (let percent = 0; percent <= 100; percent += 1) {
+    const x = (progress / 100) * percent;
     keyframes += createFrame(percent, x);
-    percent += 5;
-    x += x <= progress ? progress * 0.05 : 0;
-    //console.log(progress, percent, x);
   }
 
   keyframes += `}`;
@@ -89,14 +87,24 @@ const generateKeyframes = (animationName, progress) => {
  * @returns {Object} - An object containing functions for updating and animating progress.
  */
 export function useProgress(progress, id) {
-  const [store] = useState(new Store(id));
+  /**
+   * Ref for the Store instance.
+   * @type {React.MutableRefObject<Store>}
+   */
+  const storeRef = useRef(new Store(id));
+
+  /**
+   * Ref for the animation name.
+   * @type {React.MutableRefObject<string>}
+   */
+  const animationNameRef = useRef(`translateXAnimation-${id}`);
 
   /**
    * Updates the background image of the progress container based on the progress percentage.
-   * @returns {void}
+   * @type {Function}
    */
   const updateProgress = useCallback(() => {
-    const progressContainer = store.getProgressContainer();
+    const progressContainer = storeRef.current.getProgressContainer();
     if (progressContainer) {
       progressContainer.style.backgroundImage = `
           radial-gradient(
@@ -107,18 +115,17 @@ export function useProgress(progress, id) {
           conic-gradient(#32076360 ${progress}%, #ecf0f1 ${0}%)
         `;
     }
-  }, [progress, store]);
+  }, [progress]);
 
   /**
    * Animates the progress container using keyframes.
-   * @returns {void}
+   * @type {Function}
    */
   const animateProgress = useCallback(() => {
-    const progressContainer = store.getProgressContainer();
+    const progressContainer = storeRef.current.getProgressContainer();
     if (progressContainer) {
-      const animationName = `translateXAnimation-${id}-${Date.now()}`;
-      const progressAnimationKeyframes = store.getKeyframes(
-        true,
+      const animationName = animationNameRef.current;
+      const progressAnimationKeyframes = generateKeyframes(
         animationName,
         Number(progress)
       );
@@ -136,9 +143,9 @@ export function useProgress(progress, id) {
         );
       }
 
-      progressContainer.style.animation = `${animationName} 1.3s 1 forwards`;
+      progressContainer.style.animation = `${animationName} .9s 1 forwards`;
     }
-  }, [id, progress, store]);
+  }, [id, progress]);
 
   return { updateProgress, animateProgress };
 }
