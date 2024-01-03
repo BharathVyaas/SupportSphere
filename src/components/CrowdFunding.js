@@ -1,17 +1,8 @@
-import { Card } from "../ui/Card";
-import testImage from "../assets/images/test.jpg";
 import { useEffect, useRef, useState } from "react";
-import { EventEmitter } from "../util";
-import { useSelector } from "react-redux";
-
-/**
- * React component for displaying crowdfunding projects.
- * @component
- * @returns {JSX.Element} The rendered React element for crowdfunding.
- */
+// Found on Youtube. https://www.youtube.com/watch?v=H2HYccAGR00
 function CrowdFunding() {
   const progressRef = useRef();
-  const [count, setCount] = useState();
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -19,10 +10,12 @@ function CrowdFunding() {
         clearInterval(id);
       } else {
         setCount((prevCount) => prevCount + 1);
-        progressRef.current.innerHtml = `${count}`;
+        progressRef.current.innerHTML = `${count}`;
       }
-    });
-  }, []);
+    }, 1000);
+
+    return () => clearInterval(id);
+  }, [count]);
 
   return (
     <>
@@ -31,7 +24,7 @@ function CrowdFunding() {
           <div className="outer">
             <div className="inner">
               <div ref={progressRef} id="number">
-                65%
+                {count}%
               </div>
             </div>
           </div>
