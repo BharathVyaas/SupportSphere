@@ -1,8 +1,19 @@
 import mitt from "mitt";
 import { defaultConfing } from "./defaultConfig";
 
+// ToDo
+// On Emit get where that emit is commig form
+// Update Code so that for each type of event when recieving subescriber --
+// -- send Default value or current value of that eventType to the callback
+
 /**
  * Class representing an event emitter for managing and dispatching events.
+ *
+ * rules: Must be followed to keep Things simple
+ *
+ * 1. Must only be emitted data from context or hooks
+ * 2. Each emitted data must contain a type that is included inside defaultConfig.eventTypes
+ *
  * @class
  */
 export class EventConstructor {
@@ -31,8 +42,8 @@ export class EventConstructor {
   constructor() {
     this.#EventEmmiter = mitt();
     // > 1225 2xl < 1225 xl < 1015 lg < 800 md < 700 sm  < 500 xsm > 500
-    this.#types = defaultConfing.sizeTypes;
-    this.#events = defaultConfing.eventTypes;
+    this.#types = defaultConfing.eventTypes;
+    this.#events = defaultConfing.eventKeys;
     this.#prevEvent = {};
   }
 
@@ -67,6 +78,8 @@ export class EventConstructor {
     this.#isValidType(eventType);
 
     if (eventKey !== "reSize") console.log({ eventKey, eventType, payload });
+
+    // Will only emit if eventType is not same as stored type
     if (this.#prevEvent.eventKey !== eventType)
       this.#EventEmmiter.emit(eventKey, payload);
     this.#prevEvent.eventKey = eventType;
@@ -91,6 +104,7 @@ export class EventConstructor {
     this.#EventEmmiter.off(eventType, callback);
   }
 
+  //  Utility function
   #isValidEvent(eventKey) {
     if (!this.#events.includes(eventKey)) {
       throw new Error(
@@ -99,6 +113,7 @@ export class EventConstructor {
     }
   }
 
+  //  Utility function
   #isValidType(eventType) {
     if (!this.#types.includes(eventType)) {
       throw new Error(

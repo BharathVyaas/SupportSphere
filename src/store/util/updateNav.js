@@ -96,8 +96,11 @@ export function addNavItem(state, action) {
   return { ...state, nav, dropdown };
 }
 
+/**
+ *
+ * Replacement for previous Actions (all other Actions).
+ */
 export function updateNav(state, action) {
-  console.log("updateNav");
   switch (action.payload) {
     case "xsm":
     case "sm": {
@@ -111,6 +114,7 @@ export function updateNav(state, action) {
           lastCheckedAt: "sm",
         };
       }
+
       console.log("updateNav no change required");
       break;
     }
@@ -120,6 +124,7 @@ export function updateNav(state, action) {
         newState.lastCheckedAt = "md";
         return addNavItem(state, { payload: 2 });
       }
+
       console.log("updateNav no change required");
       break;
     }
@@ -129,6 +134,7 @@ export function updateNav(state, action) {
         newState.lastCheckedAt = "lg";
         return addNavItem(state, { payload: 3 });
       }
+
       console.log("updateNav no change required");
       break;
     }
@@ -138,6 +144,7 @@ export function updateNav(state, action) {
         newState.lastCheckedAt = "xl";
         return addNavItem(state, { payload: 4 });
       }
+
       console.log("updateNav no change required");
       break;
     }
@@ -152,6 +159,7 @@ export function updateNav(state, action) {
           lastCheckedAt: "sm",
         };
       }
+
       console.log("updateNav no change required");
       break;
     }

@@ -1,7 +1,7 @@
+import React from "react";
 import { Card } from "../ui/Card";
 import testImage from "../assets/images/test.jpg";
-import { useEffect, useRef, useState } from "react";
-import { EventEmitter } from "../util";
+import useCrowdFunding from "../hooks/use-crowdFunding";
 
 /**
  * React component for displaying crowdfunding projects.
@@ -10,50 +10,11 @@ import { EventEmitter } from "../util";
  */
 function CrowdFunding() {
   /**
-   * State for managing styles of the crowdfunding component.
-   * @type {string}
+   * Custom hook for handling crowd funding logic and styles.
+   * @type {Object}
+   * @property {string} resizeStyles - The styles for the crowdfunding component based on window size.
    */
-  const [panelStyles, setPanelStyles] = useState(true);
-  const viewSize = " mt-[5rem] grid grid-cols-";
-  const [resizeStyles, setResizeStyles] = useState(
-    panelStyles ? "ms-[260px] " : "ms-[0px] " + viewSize + "1"
-  );
-
-  useEffect(() => {
-    const handlePanelToggle = (showPanel) => {
-      setPanelStyles(showPanel);
-    };
-
-    EventEmitter.on("togglePanel", handlePanelToggle);
-
-    return () => EventEmitter.off("togglePanel", handlePanelToggle);
-  }, []);
-  const sizes = useRef([]);
-  /**
-   * Effect hook to handle panel toggle events and update styles accordingly.
-   */
-  useEffect(() => {
-    const handleResize = (size) => {
-      if (size === "2xl" || size === "xl") {
-        sizes.current.push(size);
-        if (panelStyles) setResizeStyles("ms-[260px] " + viewSize + 2);
-        else setResizeStyles("ms-[0px] " + viewSize + 3);
-      } else if (size === "lg" || size === "md") {
-        sizes.current.push(size);
-        if (panelStyles) setResizeStyles("ms-[260px] " + viewSize + 1);
-        else setResizeStyles("ms-[0px] " + viewSize + 2);
-      } else if (size === "sm" || size === "xsm") {
-        sizes.current.push(size);
-        setResizeStyles("ms-[0px] " + viewSize + 1);
-      }
-    };
-    const length = sizes.current.length - 1;
-    if (sizes.current) handleResize(sizes.current[length]);
-
-    EventEmitter.on("reSize", handleResize);
-
-    return () => EventEmitter.off("reSize", handleResize);
-  }, [panelStyles, viewSize]);
+  const { resizeStyles } = useCrowdFunding();
 
   /**
    * Render the crowdfunding component.
@@ -130,99 +91,3 @@ function CrowdFunding() {
 }
 
 export default CrowdFunding;
-/* 
-import { Card } from "../ui/Card";
-import testImage from "../assets/images/test.jpg";
-import { useEffect, useState } from "react";
-import { EventEmitter } from "../util";
-
-
-function CrowdFunding() {
-
-  const [panelStyles, setPanelStyles] = useState("ms-[260px] grid grid-cols-2");
-
-
-  useEffect(() => {
-    const handlePanelToggle = (showPanel) => {
-      setPanelStyles(
-        showPanel ? "ms-[260px] grid grid-cols-2" : "ms-[0px] grid grid-cols-3"
-      );
-    };
-
-    EventEmitter.on("togglePanel", handlePanelToggle);
-
-    return () => EventEmitter.off("togglePanel", handlePanelToggle);
-  }, []);
-
-
-  return (
-    <div className={panelStyles}>
-      <div className="my-4 mx-auto">
-        <Card
-          id="1"
-          title="My Portfolio Project"
-          img={testImage}
-          raisedAmount="1500"
-          targetAmount="5000"
-        />
-      </div>
-      <div className="my-4 mx-auto">
-        <Card
-          id="2"
-          title="Another Portfolio Project"
-          img={testImage}
-          raisedAmount="5200"
-          targetAmount="5000"
-        />
-      </div>
-      <div className="my-4 mx-auto">
-        <Card
-          id="2"
-          title="This is my Portfolio"
-          img={testImage}
-          raised="5200"
-          needed="5000"
-        />
-      </div>
-      <div className="my-4 mx-auto">
-        <Card
-          id="3"
-          title="This is my Portfolio"
-          img={testImage}
-          raised="2400"
-          needed="5000"
-        />
-      </div>
-      <div className="my-4 mx-auto">
-        <Card
-          id="4"
-          title="This is my Portfolio"
-          img={testImage}
-          raised="3600"
-          needed="5000"
-        />
-      </div>
-      <div className="my-4 mx-auto">
-        <Card
-          id="5"
-          title="This is my Portfolio"
-          img={testImage}
-          raised="4800"
-          needed="5000"
-        />
-      </div>
-      <div className="my-4 mx-auto">
-        <Card
-          id="6"
-          title="This is my Portfolio"
-          img={testImage}
-          raised="1400"
-          needed="5000"
-        />
-      </div>
-    </div>
-  );
-}
-
-export default CrowdFunding;
- */

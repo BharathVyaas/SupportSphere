@@ -83,7 +83,6 @@ function DropDownMenu({
   arrowAnimationValues,
   setArrowAnimationValues,
 }) {
-  console.log("DropDownMenu");
   const [isMenuActive, setIsMenuActive] = useState(false);
 
   /**
@@ -101,7 +100,7 @@ function DropDownMenu({
 
   // ------
 
-  // Using State So Had to declare variants inside function.
+  // Using State, Have to declare variants inside function.
   /**
    * Variants for the hover and arrow animations.
    * @type {Object}

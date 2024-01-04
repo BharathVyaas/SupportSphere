@@ -14,13 +14,8 @@ import useNavList from "../hooks/use-navList";
  * @returns {JSX.Element} - The rendered component.
  */
 function FundraiserMainNavigation() {
-  console.log("FundraiserNav");
   /**
    * State for arrow animation values.
-   * @type {Object}
-   * @property {number} rotation - Rotation value for arrow animation.
-   * @property {number} damping - Damping value for arrow animation.
-   * @property {number} delay - Delay value for arrow animation.
    */
   const [arrowAnimationValues, setArrowAnimationValues] = useState({
     rotation: 270,
@@ -30,6 +25,9 @@ function FundraiserMainNavigation() {
 
   /**
    * Hook for handling dropdown and navigation resizing.
+   *
+   * Need Optimization, causing component to render twice.
+   *
    * @type {Object}
    * @property {Object[]} dropdown - Dropdown menu data.
    * @property {Object[]} nav - Navigation routes data.
@@ -38,6 +36,7 @@ function FundraiserMainNavigation() {
 
   /**
    * Variants for the hover animation and arrow animations.
+   * Had to Declare here cause i'm using state as values.
    * @type {Object}
    */
   const variants = {
@@ -63,6 +62,8 @@ function FundraiserMainNavigation() {
       },
     },
   };
+
+  // Need to set Proper Shadows.
 
   return (
     <nav className="relative flex max-h-full">

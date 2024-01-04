@@ -1,8 +1,14 @@
 import { Route, Routes } from "react-router";
-import CrowdFunding from "../components/CrowdFunding";
+import { Suspense, lazy } from "react";
+
 import FundraiserMainNavigation from "../ui/FundraiserMainNavigation";
 import SideNav from "../ui/SideNav";
+
+// Context
 import { SideNavProvider } from "../context";
+
+// Lazy Loading
+const CrowdFunding = lazy(() => import("../components/CrowdFunding"));
 
 /**
  * Component for the Fundraiser page.
@@ -29,7 +35,14 @@ function Fundraiser() {
           <SideNav />
         </SideNavProvider>
         <Routes>
-          <Route path="crowdfunding" element={<CrowdFunding />} />
+          <Route
+            path="crowdfunding"
+            element={
+              <Suspense fallback="loading...">
+                <CrowdFunding />
+              </Suspense>
+            }
+          />
           {/* Add other routes as needed */}
         </Routes>
       </main>
