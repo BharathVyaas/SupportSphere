@@ -34,23 +34,20 @@ function useDeepEqualSelector(selector) {
  * @property {number} navLength - The length of the main navigation.
  */
 function useNavList() {
+  console.log("NavList");
   const primaryRoutes = useDeepEqualSelector((state) => state.primaryRoutes);
   const { dropdown, nav } = useMemo(() => primaryRoutes, [primaryRoutes]);
-  const dropdownLength = dropdown.length;
-  const navLength = nav.length;
   const dispatch = useDispatch();
-  console.log("navlist");
 
   useEffect(() => {
     const resizeHandler = _debounce((size) => {
-      console.log("hi");
       dispatch(primaryRouteActions.updateNav(size));
     }, defaultConfing.refreshNav);
     EventEmitter.on("reSize", resizeHandler);
     return () => EventEmitter.off("reSize", resizeHandler);
   }, [dispatch]);
 
-  return { dropdown, nav, dropdownLength, navLength };
+  return { dropdown, nav };
 }
 
 export default useNavList;
@@ -59,3 +56,65 @@ export default useNavList;
 function deepEqual(obj1, obj2) {
   return JSON.stringify(obj1) === JSON.stringify(obj2);
 }
+
+/**
+ * This Method requires an update in EventEmitter class
+ * instead I'm using the different approach
+ * 
+ * import { useEffect, useMemo, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { primaryRouteActions } from "../store/crowdfunding";
+import { EventEmitter } from "../util";
+import _debounce from "lodash/debounce";
+import { defaultConfing } from "../util/defaultConfig";
+
+class Store {
+  #dropdown;
+  #nav;
+  #routes;
+  static #store;
+  static get storeInstance() {
+    if (!this.#store) this.#store = new Store();
+    return this.#store;
+  }
+  constructor() {
+    this.#routes = [
+      { id: 1, path: "crowdfunding", title: "Crowdfunding" },
+      { id: 2, path: "events", title: "Events" },
+      { id: 3, path: "sponsorships", title: "Sponsorships" },
+      { id: 4, path: "membership-programs", title: "Membership Programs" },
+      { id: 5, path: "awareness-campaigns", title: "Awareness Campaigns" },
+    ];
+    this.#dropdown = [];
+    this.#nav = this.#routes;
+  }
+
+  updateNav() {
+    EventEmitter.on("reSize", (size) => {
+      console.log(size);
+    });
+  }
+}
+
+const store = Store.storeInstance;
+
+
+function useNavList() {
+  useEffect(() => {
+    const resizeHandler = _debounce((size) => {
+      console.log("navlist resizeHandler");
+
+      store.updateNav();
+    }, defaultConfing.refreshNav);
+
+    EventEmitter.on("reSize", resizeHandler);
+    return () => EventEmitter.off("reSize", resizeHandler);
+  }, []);
+
+  const returnVal = { dropdown: [], nav: [], dropdownLength: 0, navLength: 0 };
+  return returnVal;
+}
+
+export default useNavList;
+
+ */

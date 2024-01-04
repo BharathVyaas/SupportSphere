@@ -7,6 +7,9 @@ import useNavList from "../hooks/use-navList";
 
 /**
  * Component for the main navigation in the Fundraiser page.
+ *
+ *  --- Note* This component will rerender twice: first to retrieve data from the store, and then again with the updated data. I couldn't find another way, but if you can suggest an alternative, that would be great. However, it's optional; I'm implementing this to improve the UI.
+ *
  * @component
  * @returns {JSX.Element} - The rendered component.
  */
@@ -30,9 +33,9 @@ function FundraiserMainNavigation() {
    * @type {Object}
    * @property {Object[]} dropdown - Dropdown menu data.
    * @property {Object[]} nav - Navigation routes data.
-   * @property {number} dropdownLength - Length of the dropdown menu.
    */
-  const { dropdown: dropDownMenu, nav: routes, dropdownLength } = useNavList();
+  const { dropdown, nav: routes } = useNavList();
+
   /**
    * Variants for the hover animation and arrow animations.
    * @type {Object}
@@ -81,8 +84,7 @@ function FundraiserMainNavigation() {
             </motion.li>
           ))}
         <DropDownMenu
-          dropDownMenu={dropDownMenu}
-          dropdownLength={dropdownLength}
+          dropdown={dropdown}
           arrowAnimationValues={arrowAnimationValues}
           setArrowAnimationValues={setArrowAnimationValues}
         />

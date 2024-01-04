@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router";
 import CrowdFunding from "../components/CrowdFunding";
-import FundraiserMainNavigation from "../ui/FundrainserMainNavigation";
+import FundraiserMainNavigation from "../ui/FundraiserMainNavigation";
 import SideNav from "../ui/SideNav";
 import { SideNavProvider } from "../context";
 

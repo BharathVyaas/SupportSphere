@@ -79,20 +79,12 @@ const menuContainerVariants = {
  * @returns {JSX.Element} - The rendered component.
  */
 function DropDownMenu({
-  dropDownMenu,
+  dropdown,
   arrowAnimationValues,
   setArrowAnimationValues,
 }) {
   console.log("DropDownMenu");
   const [isMenuActive, setIsMenuActive] = useState(false);
-  const [isMenuAvailable, setIsMenuAvailable] = useState(true);
-
-  const dropdown = dropDownMenu;
-
-  useEffect(() => {
-    if (dropdown && dropdown.length)
-      setIsMenuAvailable(dropdown && dropdown.length);
-  }, [dropdown]);
 
   /**
    * Removing border of the last drop menu item.
@@ -105,7 +97,7 @@ function DropDownMenu({
       if (dropDownMenu && dropDownMenu.lastChild)
         dropDownMenu.lastChild.style.borderBottom = 0;
     }
-  }, [isMenuActive, dropdown]);
+  }, [isMenuActive]);
 
   // ------
 
@@ -153,16 +145,16 @@ function DropDownMenu({
               setArrowAnimationValues(activeMenuAnimation);
               setIsMenuActive(false);
             } else {
-              if (isMenuAvailable) {
+              if (dropdown) {
                 setArrowAnimationValues(openMenuAnimation);
                 setIsMenuActive(true);
               }
             }
           }}
-          disabled={!isMenuAvailable}
+          disabled={!dropdown}
         >
           {/* Arrow Img */}
-          {isMenuAvailable ? (
+          {dropdown ? (
             <img src={arrowActive} alt="arrow" width="14" height="15" />
           ) : (
             <img
@@ -175,7 +167,7 @@ function DropDownMenu({
         </motion.button>
         {/* Drop Down section */}
         <AnimatePresence>
-          {isMenuAvailable && isMenuActive && (
+          {dropdown && isMenuActive && (
             <aside className="absolute right-[10rem] top-[60%]">
               {/* Icon Creater FlatIcon */}
               <div className="hidden">
