@@ -80,10 +80,12 @@ const menuContainerVariants = {
  * @returns {JSX.Element} - The rendered component.
  */
 function DropDownMenu({
+  dropDownMenu,
   arrowAnimationValues,
   setArrowAnimationValues,
   dropdownLength,
 }) {
+  console.log("DropDownMenu");
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [isMenuAvailable, setIsMenuAvailable] = useState(true);
 
@@ -93,7 +95,7 @@ function DropDownMenu({
     }
   }, [dropdownLength]);
 
-  const dropdown = useSelector((state) => state.primaryRoutes.dropdown);
+  const dropdown = dropDownMenu;
 
   useEffect(() => {
     setIsMenuAvailable(dropdown && dropdown.length);

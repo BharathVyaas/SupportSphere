@@ -14,7 +14,7 @@ function CrowdFunding() {
    * @type {string}
    */
   const [panelStyles, setPanelStyles] = useState(true);
-  let viewSize = " mt-[5rem] grid grid-cols-";
+  const viewSize = " mt-[5rem] grid grid-cols-";
   const [resizeStyles, setResizeStyles] = useState(
     panelStyles ? "ms-[260px] " : "ms-[0px] " + viewSize + "1"
   );
@@ -53,7 +53,7 @@ function CrowdFunding() {
     EventEmitter.on("reSize", handleResize);
 
     return () => EventEmitter.off("reSize", handleResize);
-  }, [panelStyles]);
+  }, [panelStyles, viewSize]);
 
   /**
    * Render the crowdfunding component.

@@ -1,8 +1,8 @@
-import { useEffect, useMemo } from "react";
-import _debounce from "lodash/debounce";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { primaryRouteActions } from "../store/crowdfunding";
 import { EventEmitter } from "../util";
+import _debounce from "lodash/debounce";
 
 /**
  * Custom hook for handling dynamic resizing of navigation elements.
@@ -19,23 +19,17 @@ function useNavList() {
   const dropdownLength = dropdown.length;
   const navLength = nav.length;
   const dispatch = useDispatch();
-
+  console.log("navlist");
   useEffect(() => {
-    const resizeHandler = (data) => {
-      dispatch(primaryRouteActions.updateNav(data));
-    };
+    // Receives custom size ex:- xl 2xl xsm
+    const resizeHandler = _debounce((size) => {
+      dispatch(primaryRouteActions.updateNav(size));
+    }, 500);
     EventEmitter.on("reSize", resizeHandler);
     return () => EventEmitter.off("reSize", resizeHandler);
-  }, []);
+  }, [dispatch]);
 
-  /**
-   * Memoized return value to avoid unnecessary re-renders.
-   */
-  const returnValue = useMemo(() => {
-    return { dropdown, nav, dropdownLength, navLength };
-  }, [dropdown, nav, dropdownLength, navLength]);
-
-  return returnValue;
+  return { dropdown, nav, dropdownLength, navLength };
 }
 
 export default useNavList;

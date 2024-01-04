@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { EventEmitter } from "../util";
+import _debounce from "lodash/debounce";
 
 /**
  *
@@ -38,7 +39,15 @@ export function SideNavProvider({ children }) {
    * Effect to emit a togglePanel event whenever the showSideNav state changes.
    */
   useEffect(() => {
-    EventEmitter.emit("togglePanel", { type: "sideBar", payload: showSideNav });
+    const debouncedEmit = _debounce(() => {
+      EventEmitter.emit("togglePanel", {
+        type: "sideBar",
+        payload: showSideNav,
+      });
+    }, 10);
+
+    debouncedEmit();
+    return debouncedEmit.cancel;
   }, [showSideNav]);
 
   return (

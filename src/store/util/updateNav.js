@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 /**
  * Updates the last checked route size.
  * ```
@@ -84,14 +86,15 @@ export function addDropDownItem(state, action) {
  * @param {number} action.payload - The number of navigation items to add.
  * @returns {Object} - The updated state.
  */
+
 export function addNavItem(state, action) {
-  const list = [];
+  const navIndex = Math.min(action.payload, state.routes.length);
+  const navLength = Math.min(action.payload, state.routes.length);
 
-  for (let i = 0; i <= action.payload - 1; i++) {
-    list.push(state.routes[i]);
-  }
+  const nav = _.take(state.routes, navLength);
+  const dropdown = _.drop(state.routes, navLength);
 
-  return { ...state, nav: list };
+  return { ...state, nav, dropdown };
 }
 
 export function updateNav(state, action) {
@@ -122,5 +125,6 @@ export function updateNav(state, action) {
         lastCheckedAt: "sm",
       };
     }
+    default:
   }
 }

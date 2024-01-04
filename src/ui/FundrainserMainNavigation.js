@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -11,6 +11,7 @@ import useNavList from "../hooks/use-navList";
  * @returns {JSX.Element} - The rendered component.
  */
 function FundraiserMainNavigation() {
+  console.log("FundraiserNav");
   /**
    * State for arrow animation values.
    * @type {Object}
@@ -32,7 +33,6 @@ function FundraiserMainNavigation() {
    * @property {number} dropdownLength - Length of the dropdown menu.
    */
   const { dropdown: dropDownMenu, nav: routes, dropdownLength } = useNavList();
-
   /**
    * Variants for the hover animation and arrow animations.
    * @type {Object}
@@ -112,4 +112,4 @@ function FundraiserMainNavigation() {
   );
 }
 
-export default FundraiserMainNavigation;
+export default memo(FundraiserMainNavigation);

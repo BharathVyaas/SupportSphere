@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import _debounce from "lodash/debounce";
 
 import { EventEmitter } from "../util";
@@ -15,60 +15,47 @@ function useReSize() {
   /**
    * Resize handler function, debounced to prevent excessive calls.
    */
-  const resizeHandler = useMemo(
-    () =>
-      _debounce(() => {
-        if (window.innerWidth < 500) {
-          const type = "xsm";
-          const payload = "xsm";
-          EventEmitter.emit("reSize", { type, payload });
-        } else if (window.innerWidth < 650) {
-          const type = "sm";
-          const payload = type;
-          EventEmitter.emit("reSize", { type, payload });
-        } else if (window.innerWidth < 800) {
-          const type = "md";
-          const payload = type;
-          EventEmitter.emit("reSize", { type, payload });
-        } else if (window.innerWidth < 1015) {
-          const type = "lg";
-          const payload = type;
-          EventEmitter.emit("reSize", { type, payload });
-        } else if (window.innerWidth < 1225) {
-          const type = "xl";
-          const payload = type;
-          EventEmitter.emit("reSize", { type, payload });
-        } else if (window.innerWidth > 1225) {
-          const type = "2xl";
-          const payload = type;
-          EventEmitter.emit("reSize", { type, payload });
-        }
-      }, 10),
-    []
-  );
-
-  /**
-   * Effect to update dropdown menu on component mount and resize.
-   */
   useEffect(() => {
-    resizeHandler();
-  }, [resizeHandler]);
+    const debouncedResizeHandler = _debounce(() => {
+      if (window.innerWidth < 500) {
+        const type = "xsm";
+        const payload = "xsm";
+        EventEmitter.emit("reSize", { type, payload });
+      } else if (window.innerWidth < 650) {
+        const type = "sm";
+        const payload = type;
+        EventEmitter.emit("reSize", { type, payload });
+      } else if (window.innerWidth < 800) {
+        const type = "md";
+        const payload = type;
+        EventEmitter.emit("reSize", { type, payload });
+      } else if (window.innerWidth < 1015) {
+        const type = "lg";
+        const payload = type;
+        EventEmitter.emit("reSize", { type, payload });
+      } else if (window.innerWidth < 1225) {
+        const type = "xl";
+        const payload = type;
+        EventEmitter.emit("reSize", { type, payload });
+      } else if (window.innerWidth > 1225) {
+        const type = "2xl";
+        const payload = type;
+        EventEmitter.emit("reSize", { type, payload });
+      }
+    }, 300);
 
-  //..
-  useEffect(() => {
-    window.addEventListener("resize", resizeHandler);
+    // Initial call to set the initial state
+    debouncedResizeHandler();
 
-    return () => window.removeEventListener("resize", resizeHandler);
-  }, [resizeHandler]);
+    window.addEventListener("resize", debouncedResizeHandler);
 
-  /**
-   * Memoized return value to avoid unnecessary re-renders.
-   */
-  /*   const returnValue = useMemo(() => {
-    return { dropdown, nav, dropdownLength, navLength };
-  }, [dropdown, nav, dropdownLength, navLength]);
+    return () => {
+      window.removeEventListener("resize", debouncedResizeHandler);
+      debouncedResizeHandler.cancel();
+    };
+  }, []);
 
-  return returnValue; */
+  // This Hook Doesn't Return Anything.
 }
 
 export default useReSize;
