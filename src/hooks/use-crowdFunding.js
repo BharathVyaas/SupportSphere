@@ -33,7 +33,7 @@ function useCrowdFunding() {
   const sizes = useRef([]);
 
   /**
-   * CSS class for the initial view size.
+   * Tailwind for the initial view size.
    * @type {string}
    */
   const viewSize = " mt-[5rem] grid grid-cols-";
