@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 import arrowActive from "../assets/icons/arrow-down-active.png";
 import arrowDisabled from "../assets/icons/arrow-down-disabled.png";
 import arrowMenuAttach from "../assets/icons/arrow-down-MenuAttach.png";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 /**
  * Animation values for an active menu.

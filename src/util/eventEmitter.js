@@ -1,4 +1,5 @@
 import mitt from "mitt";
+import { defaultConfing } from "./defaultConfig";
 
 /**
  * Class representing an event emitter for managing and dispatching events.
@@ -26,8 +27,8 @@ export class EventConstructor {
   constructor() {
     this.#EventEmmiter = mitt();
     // > 1225 2xl < 1225 xl < 1015 lg < 800 md < 700 sm  < 500 xsm > 500
-    this.#types = ["sideBar", "xsm", "sm", "md", "lg", "xl", "2xl"];
-    this.#events = ["togglePanel", "reSize"];
+    this.#types = defaultConfing.sizeTypes;
+    this.#events = defaultConfing.eventTypes;
   }
 
   /**
@@ -60,7 +61,7 @@ export class EventConstructor {
     this.#isValidEvent(eventKey);
     this.#isValidType(eventType);
 
-    console.log({ eventKey, eventType, payload });
+    if (eventKey !== "reSize") console.log({ eventKey, eventType, payload });
     this.#EventEmmiter.emit(eventKey, payload);
   }
 
@@ -70,6 +71,10 @@ export class EventConstructor {
    * @param {Function} callback - The callback function to handle the event.
    */
   on(eventKey, callback) {
+    this.#isValidEvent(eventKey);
+
+    callback(defaultConfing[eventKey]);
+
     this.#EventEmmiter.on(eventKey, callback);
   }
 

@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { EventEmitter } from "../util";
 import _debounce from "lodash/debounce";
+import { defaultConfing } from "../util/defaultConfig";
 
 /**
  *
@@ -33,7 +34,7 @@ export function SideNavProvider({ children }) {
    * State indicating whether the side navigation is visible.
    * @type {boolean}
    */
-  const [showSideNav, setShowSideNav] = useState(true);
+  const [showSideNav, setShowSideNav] = useState(defaultConfing.initialSideNav);
 
   /**
    * Effect to emit a togglePanel event whenever the showSideNav state changes.

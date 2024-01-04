@@ -88,7 +88,6 @@ export function addDropDownItem(state, action) {
  */
 
 export function addNavItem(state, action) {
-  const navIndex = Math.min(action.payload, state.routes.length);
   const navLength = Math.min(action.payload, state.routes.length);
 
   const nav = _.take(state.routes, navLength);
