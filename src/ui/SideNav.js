@@ -1,10 +1,11 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
 import arrowIcon from "../assets/icons/arrow-down-active.png";
 
 import { sideNavContext } from "../context/sideNav";
+import { EventEmitter } from "../util";
 
 /**
  * Variants for animating the title of each side navigation item.
@@ -29,6 +30,21 @@ const listVariants = {
  * @returns {JSX.Element} The rendered JSX element for the SideNav component.
  */
 function SideNav() {
+  const [state, setState] = useState(1);
+  //
+  //
+  useEffect(() => {
+    const handler = () => setState((prev) => prev + 1);
+    EventEmitter.on("reSize", handler);
+
+    return () => EventEmitter.off("reSize", handler);
+  }, []);
+
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
+  //
+  //
   const { pathname } = useLocation();
 
   /**

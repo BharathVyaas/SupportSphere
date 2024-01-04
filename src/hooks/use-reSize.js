@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import _debounce from "lodash/debounce";
 
 import { EventEmitter } from "../util";
+import { defaultConfing } from "../util/defaultConfig";
 
 /**
  * Custom hook for handling dynamic resizing of navigation elements.
@@ -42,7 +43,7 @@ function useReSize() {
         const payload = type;
         EventEmitter.emit("reSize", { type, payload });
       }
-    }, 300);
+    }, defaultConfing.refreshResize);
 
     // Initial call to set the initial state
     debouncedResizeHandler();

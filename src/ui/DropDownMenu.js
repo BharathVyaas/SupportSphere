@@ -82,22 +82,16 @@ function DropDownMenu({
   dropDownMenu,
   arrowAnimationValues,
   setArrowAnimationValues,
-  dropdownLength,
 }) {
   console.log("DropDownMenu");
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [isMenuAvailable, setIsMenuAvailable] = useState(true);
 
-  useEffect(() => {
-    if (dropdownLength < 1) {
-      setIsMenuAvailable(false);
-    }
-  }, [dropdownLength]);
-
   const dropdown = dropDownMenu;
 
   useEffect(() => {
-    setIsMenuAvailable(dropdown && dropdown.length);
+    if (dropdown && dropdown.length)
+      setIsMenuAvailable(dropdown && dropdown.length);
   }, [dropdown]);
 
   /**

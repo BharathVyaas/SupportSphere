@@ -97,33 +97,78 @@ export function addNavItem(state, action) {
 }
 
 export function updateNav(state, action) {
+  console.log("updateNav");
   switch (action.payload) {
-    case "xsm":
+    case "xsm": {
+      if (state.lastCheckedAt !== "xsm") {
+        const newState = { ...state };
+        newState.lastCheckedAt = "xsm";
+        return {
+          ...newState,
+          nav: [],
+          dropdown: [...state.routes],
+          lastCheckedAt: "xsm",
+        };
+      }
+      console.log("updateNav no change required");
+      break;
+    }
     case "sm": {
-      return {
-        ...state,
-        nav: [],
-        dropdown: [...state.routes],
-        lastCheckedAt: "sm",
-      };
+      if (state.lastCheckedAt !== "sm") {
+        const newState = { ...state };
+        newState.lastCheckedAt = "sm";
+        return {
+          ...newState,
+          nav: [],
+          dropdown: [...state.routes],
+          lastCheckedAt: "sm",
+        };
+      }
+      console.log("updateNav no change required");
+      break;
     }
     case "md": {
-      return addNavItem(state, { payload: 2 });
+      if (state.lastCheckedAt !== "md") {
+        const newState = { ...state };
+        newState.lastCheckedAt = "md";
+        return addNavItem(state, { payload: 2 });
+      }
+      console.log("updateNav no change required");
+      break;
     }
     case "lg": {
-      return addNavItem(state, { payload: 3 });
+      if (state.lastCheckedAt !== "lg") {
+        const newState = { ...state };
+        newState.lastCheckedAt = "lg";
+        return addNavItem(state, { payload: 3 });
+      }
+      console.log("updateNav no change required");
+      break;
     }
     case "xl": {
-      return addNavItem(state, { payload: 4 });
+      if (state.lastCheckedAt !== "xl") {
+        const newState = { ...state };
+        newState.lastCheckedAt = "xl";
+        return addNavItem(state, { payload: 4 });
+      }
+      console.log("updateNav no change required");
+      break;
     }
     case "2xl": {
-      return {
-        ...state,
-        dropdown: [],
-        nav: [...state.routes],
-        lastCheckedAt: "sm",
-      };
+      if (state.lastCheckedAt !== "2xl") {
+        const newState = { ...state };
+        newState.lastCheckedAt = "2xl";
+        return {
+          ...state,
+          dropdown: [],
+          nav: [...state.routes],
+          lastCheckedAt: "sm",
+        };
+      }
+      console.log("updateNav no change required");
+      break;
     }
     default:
+      throw new Error("Unknown size updateNav");
   }
 }

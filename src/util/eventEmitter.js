@@ -24,11 +24,16 @@ export class EventConstructor {
    */
   #EventEmmiter;
 
+  /**
+   * Stores last events occured with each evenKey value is eventType
+   */
+  #prevEvent;
   constructor() {
     this.#EventEmmiter = mitt();
     // > 1225 2xl < 1225 xl < 1015 lg < 800 md < 700 sm  < 500 xsm > 500
     this.#types = defaultConfing.sizeTypes;
     this.#events = defaultConfing.eventTypes;
+    this.#prevEvent = {};
   }
 
   /**
@@ -62,7 +67,9 @@ export class EventConstructor {
     this.#isValidType(eventType);
 
     if (eventKey !== "reSize") console.log({ eventKey, eventType, payload });
-    this.#EventEmmiter.emit(eventKey, payload);
+    if (this.#prevEvent.eventKey !== eventType)
+      this.#EventEmmiter.emit(eventKey, payload);
+    this.#prevEvent.eventKey = eventType;
   }
 
   /**
@@ -72,8 +79,6 @@ export class EventConstructor {
    */
   on(eventKey, callback) {
     this.#isValidEvent(eventKey);
-
-    callback(defaultConfing[eventKey]);
 
     this.#EventEmmiter.on(eventKey, callback);
   }
