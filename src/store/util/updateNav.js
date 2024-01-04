@@ -99,22 +99,9 @@ export function addNavItem(state, action) {
 export function updateNav(state, action) {
   console.log("updateNav");
   switch (action.payload) {
-    case "xsm": {
-      if (state.lastCheckedAt !== "xsm") {
-        const newState = { ...state };
-        newState.lastCheckedAt = "xsm";
-        return {
-          ...newState,
-          nav: [],
-          dropdown: [...state.routes],
-          lastCheckedAt: "xsm",
-        };
-      }
-      console.log("updateNav no change required");
-      break;
-    }
+    case "xsm":
     case "sm": {
-      if (state.lastCheckedAt !== "sm") {
+      if (state.lastCheckedAt !== "sm" || state.lastCheckedAt !== "xsm") {
         const newState = { ...state };
         newState.lastCheckedAt = "sm";
         return {

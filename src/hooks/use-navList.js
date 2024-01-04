@@ -1,3 +1,4 @@
+//Number 2
 import { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { primaryRouteActions } from "../store/crowdfunding";
@@ -25,20 +26,8 @@ function useDeepEqualSelector(selector) {
   return memoizedState;
 }
 
-/**
- * Custom hook for handling dynamic resizing of navigation elements.
- * @returns {Object} - An object containing properties related to navigation.
- * @property {Array} dropdown - The dropdown menu items.
- * @property {Array} nav - The main navigation items.
- * @property {number} dropdownLength - The length of the dropdown menu.
- * @property {number} navLength - The length of the main navigation.
- */
 function useNavList() {
-  console.log("NavList");
-  const primaryRoutes = useDeepEqualSelector((state) => state.primaryRoutes);
-  const { dropdown, nav } = useMemo(() => primaryRoutes, [primaryRoutes]);
   const dispatch = useDispatch();
-
   useEffect(() => {
     const resizeHandler = _debounce((size) => {
       dispatch(primaryRouteActions.updateNav(size));
@@ -46,6 +35,9 @@ function useNavList() {
     EventEmitter.on("reSize", resizeHandler);
     return () => EventEmitter.off("reSize", resizeHandler);
   }, [dispatch]);
+  console.log("NavList"); //
+  const primaryRoutes = useDeepEqualSelector((state) => state.primaryRoutes);
+  const { dropdown, nav } = useMemo(() => primaryRoutes, [primaryRoutes]);
 
   return { dropdown, nav };
 }
@@ -57,10 +49,108 @@ function deepEqual(obj1, obj2) {
   return JSON.stringify(obj1) === JSON.stringify(obj2);
 }
 
+/* 
+// Number 3
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { primaryRouteActions } from "../store/crowdfunding";
+import { EventEmitter } from "../util";
+import _debounce from "lodash/debounce";
+import { defaultConfing } from "../util/defaultConfig";
+import _ from "lodash";
+
+const ObjConstructor = {
+  init: function (routes, nav, dropdown) {
+    this.routes = routes;
+    this.nav = nav;
+    this.dropdown = dropdown;
+    return this;
+  },
+};
+
+class NavHandler {
+  #routes;
+
+  constructor() {
+    this.#routes = [
+      { id: 1, path: "crowdfunding", title: "Crowdfunding" },
+      { id: 2, path: "events", title: "Events" },
+      { id: 3, path: "sponsorships", title: "Sponsorships" },
+      { id: 4, path: "membership-programs", title: "Membership Programs" },
+      { id: 5, path: "awareness-campaigns", title: "Awareness Campaigns" },
+    ];
+  }
+
+  generateObj(...rest) {
+    const resultObj = Object.create(ObjConstructor);
+    return resultObj.init(...rest);
+  }
+
+  split(navLength) {
+    const nav = _.take(this.#routes, navLength);
+    const dropdown = _.drop(this.#routes, navLength);
+    return this.generateObj(this.#routes, nav, dropdown);
+  }
+
+  updateNav(size) {
+    switch (size) {
+      case "xsm":
+      case "sm": {
+        return this.generateObj(this.#routes, [], this.#routes);
+      }
+      case "md": {
+        return this.split(2);
+      }
+      case "lg": {
+        return this.split(3);
+      }
+      case "xl": {
+        return this.split(4);
+      }
+      case "2xl": {
+        return this.generateObj(this.#routes, this.#routes, []);
+      }
+    }
+  }
+}
+
+function useNavList() {
+  let currentNav = {
+    routes: [],
+    dropdown: [],
+    nav: [],
+  };
+  console.log("useNavList");
+  // Requires State
+  // const [currentNav, setCurrentNav] = useState({
+  //  routes: [],
+  //  dropdown: [],
+  // nav: [],
+  // });
+
+  useEffect(() => {
+    const navHandler = new NavHandler();
+    const resizeHandler = _debounce(
+      (size) => {
+        currentNav = navHandler.updateNav(size);
+      },
+      [defaultConfing.refreshNav]
+    );
+    EventEmitter.on("reSize", resizeHandler);
+    return () => EventEmitter.off("reSize", resizeHandler);
+  }, []);
+
+  return currentNav;
+}
+
+export default useNavList; */
+
 /**
  * This Method requires an update in EventEmitter class
+ * I don't wanna make event-emitter more complicated
  * instead I'm using the different approach
  * 
+ * // Number 1
  * import { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { primaryRouteActions } from "../store/crowdfunding";

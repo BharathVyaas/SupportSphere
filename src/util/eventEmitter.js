@@ -79,7 +79,6 @@ export class EventConstructor {
    */
   on(eventKey, callback) {
     this.#isValidEvent(eventKey);
-
     this.#EventEmmiter.on(eventKey, callback);
   }
 
