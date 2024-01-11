@@ -80,8 +80,12 @@ export class EventConstructor {
     if (eventKey !== "reSize") console.log({ eventKey, eventType, payload });
 
     // Will only emit if eventType is not same as stored type
-    if (this.#prevEvent.eventKey !== eventType)
+    if (this.#prevEvent.eventKey !== eventType) {
       this.#EventEmmiter.emit(eventKey, payload);
+    } else if (eventType === "sideBar") {
+      this.#EventEmmiter.emit(eventKey, payload);
+    }
+
     this.#prevEvent.eventKey = eventType;
   }
 

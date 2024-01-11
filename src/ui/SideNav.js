@@ -30,21 +30,6 @@ const listVariants = {
  * @returns {JSX.Element} The rendered JSX element for the SideNav component.
  */
 function SideNav() {
-  const [state, setState] = useState(1);
-  //
-  //
-  useEffect(() => {
-    const handler = () => setState((prev) => prev + 1);
-    EventEmitter.on("reSize", handler);
-
-    return () => EventEmitter.off("reSize", handler);
-  }, []);
-
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
-  //
-  //
   const { pathname } = useLocation();
 
   /**

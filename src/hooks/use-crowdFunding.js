@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import { EventEmitter } from "../util";
+import { defaultConfing } from "../util/defaultConfig";
 
 /**
  * Custom hook for handling crowd funding logic and styles.
@@ -14,7 +15,7 @@ function useCrowdFunding() {
    * State for managing styles of the crowdfunding component.
    * @type {string}
    */
-  const [panelStyles, setPanelStyles] = useState(true);
+  const [panelStyles, setPanelStyles] = useState(defaultConfing.initialSideNav);
 
   useEffect(() => {
     const handlePanelToggle = (showPanel) => {
@@ -36,29 +37,42 @@ function useCrowdFunding() {
    * Tailwind for the initial view size.
    * @type {string}
    */
-  const viewSize = " mt-[5rem] grid grid-cols-";
+  const viewSize = " view-size ";
 
   /**
    * State for managing resizing styles of the crowdfunding component.
    * @type {string}
    */
   const [resizeStyles, setResizeStyles] = useState(
-    panelStyles ? "ms-[260px] " : "ms-[0px] " + viewSize + "1"
+    panelStyles
+      ? "margin-start-260 " + viewSize + "grid-columns-1"
+      : "margin-start-0 " + viewSize + "grid-columns-1"
   );
 
   useEffect(() => {
     const handleResize = (size) => {
-      if (size === "2xl" || size === "xl") {
+      if (size === "2xl") {
         sizes.current.push(size);
-        if (panelStyles) setResizeStyles("ms-[260px] " + viewSize + 2);
-        else setResizeStyles("ms-[0px] " + viewSize + 3);
+        if (panelStyles)
+          setResizeStyles("margin-start-260 " + viewSize + " grid-columns-3");
+        else {
+          setResizeStyles("margin-start-0 " + viewSize + " grid-columns-3");
+        }
+      } else if (size === "xl") {
+        sizes.current.push(size);
+        if (panelStyles)
+          setResizeStyles("margin-start-260 " + viewSize + " grid-columns-2");
+        else {
+          setResizeStyles("margin-start-0 " + viewSize + " grid-columns-3");
+        }
       } else if (size === "lg" || size === "md") {
         sizes.current.push(size);
-        if (panelStyles) setResizeStyles("ms-[260px] " + viewSize + 1);
-        else setResizeStyles("ms-[0px] " + viewSize + 2);
+        if (panelStyles)
+          setResizeStyles("margin-start-260 " + viewSize + " grid-columns-1");
+        else setResizeStyles("margin-start-0 " + viewSize + " grid-columns-2");
       } else if (size === "sm" || size === "xsm") {
         sizes.current.push(size);
-        setResizeStyles("ms-[0px] " + viewSize + 1);
+        setResizeStyles("margin-start-0 " + viewSize + " grid-columns-1");
       }
     };
 
@@ -66,8 +80,12 @@ function useCrowdFunding() {
     if (sizes.current) handleResize(sizes.current[length]);
 
     EventEmitter.on("reSize", handleResize);
+    EventEmitter.on("togglePanel", handleResize);
 
-    return () => EventEmitter.off("reSize", handleResize);
+    return () => {
+      EventEmitter.off("reSize", handleResize);
+      EventEmitter.off("togglePanel", handleResize);
+    };
   }, [panelStyles, viewSize]);
 
   return { sizes, setResizeStyles, resizeStyles };

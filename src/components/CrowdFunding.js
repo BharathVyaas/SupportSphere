@@ -15,7 +15,6 @@ function CrowdFunding() {
    * @property {string} resizeStyles - The styles for the crowdfunding component based on window size.
    */
   const { resizeStyles } = useCrowdFunding();
-
   /**
    * Render the crowdfunding component.
    * @returns {JSX.Element} The rendered React element.
