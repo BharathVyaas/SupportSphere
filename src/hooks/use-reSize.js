@@ -20,7 +20,7 @@ function useReSize() {
     const debouncedResizeHandler = _debounce(() => {
       if (window.innerWidth < 500) {
         const type = "xsm";
-        const payload = "xsm";
+        const payload = type;
         EventEmitter.emit("reSize", { type, payload });
       } else if (window.innerWidth < 650) {
         const type = "sm";
@@ -30,11 +30,11 @@ function useReSize() {
         const type = "md";
         const payload = type;
         EventEmitter.emit("reSize", { type, payload });
-      } else if (window.innerWidth < 1015) {
+      } else if (window.innerWidth < 1024) {
         const type = "lg";
         const payload = type;
         EventEmitter.emit("reSize", { type, payload });
-      } else if (window.innerWidth < 1225) {
+      } else if (window.innerWidth < 1220) {
         const type = "xl";
         const payload = type;
         EventEmitter.emit("reSize", { type, payload });

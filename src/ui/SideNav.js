@@ -1,11 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
 import arrowIcon from "../assets/icons/arrow-down-active.png";
 
 import { sideNavContext } from "../context/sideNav";
-import { EventEmitter } from "../util";
 
 /**
  * Variants for animating the title of each side navigation item.
