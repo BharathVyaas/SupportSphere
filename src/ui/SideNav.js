@@ -20,7 +20,7 @@ const titleVariants = {
  * @type {Object}
  */
 const listVariants = {
-  visible: { transition: { staggerChildren: 0.06 } },
+  visible: { transition: { staggerChildren: 0.1 } },
 };
 
 /**

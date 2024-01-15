@@ -4,37 +4,6 @@ import { useEffect } from "react";
 import { useProgress } from "../hooks/use-progress";
 
 /**
- * Variants for the animation of the entire card.
- * @constant
- * @type {Object}
- * @property {Object} visible - Visible state with spring animation.
- * @property {number} visible.x - X-axis position.
- * @property {number} visible.y - Y-axis position.
- * @property {Object} visible.transition - Transition settings.
- * @property {string} visible.transition.type - Type of animation (spring).
- * @property {number} visible.transition.stiffness - Stiffness of the spring.
- * @property {number} visible.transition.staggerChildren - Stagger animation of children.
- * @property {Object} hidden - Hidden state without animation.
- * @property {number} hidden.x - X-axis position.
- * @property {number} hidden.y - Y-axis position.
- */
-const cardVariants = {
-  visible: {
-    x: 0,
-    y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 120,
-      staggerChildren: 0.02,
-    },
-  },
-  hidden: {
-    x: 30,
-    y: 60,
-  },
-};
-
-/**
  * Variants for the animation of the card description elements.
  * @constant
  * @type {Object}
@@ -98,12 +67,7 @@ export function Card(props) {
   }, [progress, id, animateProgress, updateProgress]);
 
   return (
-    <motion.section
-      variants={cardVariants}
-      initial="hidden"
-      animate="visible"
-      className="inline-block w-[280px] h-[310px] rounded-xl shadow-xl border-solid border-[2px] border-softPurple"
-    >
+    <motion.section className="inline-block w-[280px] h-[310px] rounded-xl shadow-xl border-solid border-[2px] border-softPurple">
       {/* Card Head */}
       <figure className="border-b-2 border-softPurple h-[auto] shadow-xl rounded-t-xl">
         <img

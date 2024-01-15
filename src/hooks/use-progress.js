@@ -84,18 +84,19 @@ const createFrame = (percent, x) => {
  * @returns {string} - The keyframes for the translation animation.
  */
 const generateKeyframes = (animationName, progress) => {
+  console.log("use-progress", progress);
   let x = 0;
   let percent = 0;
   let keyframes = `@keyframes ${animationName} {`;
 
   while (x <= progress) {
+    console.log("use-progress while");
     keyframes += createFrame(percent, x);
     percent += 10;
     x += x <= progress ? progress * 0.1 : 0;
   }
 
   keyframes += `}`;
-
   return keyframes;
 };
 
@@ -141,7 +142,7 @@ export function useProgress(progress, id) {
         animationName,
         Number(progress)
       );
-
+      console.log("use-progress end");
       const styleSheet = document.styleSheets[0];
       if (
         !styleSheet ||

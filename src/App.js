@@ -1,8 +1,12 @@
+import { Suspense, lazy } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Fundraiser from "./pages/Fundraiser";
 import useReSize from "./hooks/use-reSize";
+
+// Lazy Loading
+const CrowdFunding = lazy(() => import("./components/CrowdFunding"));
 
 function App() {
   useReSize();
@@ -11,7 +15,29 @@ function App() {
     {
       path: "/",
       element: <Home />,
-      children: [{ path: "/*", element: <Fundraiser /> }],
+      children: [
+        {
+          path: "/*",
+          element: <Fundraiser />,
+          children: [
+            {
+              path: "crowdfunding",
+              element: (
+                <Suspense fallback="loading...">
+                  <CrowdFunding />
+                </Suspense>
+              ),
+              loader: async () => {
+                const res = await fetch(
+                  "http://localhost:4001/campaign/view-campaigns:medicalExpenses"
+                );
+
+                return await res.json();
+              },
+            },
+          ],
+        },
+      ],
     },
   ]);
   return <RouterProvider router={router} />;
