@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 
 import { useProgress } from "../hooks/use-progress";
 
@@ -47,7 +47,7 @@ const cardDescriptionVariants = {
  * @param {string} props.targetAmount - The total amount needed for the project.
  * @returns {JSX.Element} - The Card component JSX.
  */
-export function Card(props) {
+export const Card = memo((props) => {
   const id = props.id;
   const title = props.title;
   const imgSrc = props.img;
@@ -133,4 +133,4 @@ export function Card(props) {
       </figcaption>
     </motion.section>
   );
-}
+});

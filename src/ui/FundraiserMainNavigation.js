@@ -14,6 +14,7 @@ import useNavList from "../hooks/use-navList";
  * @returns {JSX.Element} - The rendered component.
  */
 function FundraiserMainNavigation() {
+  console.log("FundraiserMainNavigation:render");
   /**
    * State for arrow animation values.
    */

@@ -84,16 +84,14 @@ const createFrame = (percent, x) => {
  * @returns {string} - The keyframes for the translation animation.
  */
 const generateKeyframes = (animationName, progress) => {
-  console.log("use-progress", progress);
   let x = 0;
   let percent = 0;
   let keyframes = `@keyframes ${animationName} {`;
 
   while (x <= progress) {
-    console.log("use-progress while");
     keyframes += createFrame(percent, x);
     percent += 10;
-    x += x <= progress ? progress * 0.1 : 0;
+    x += progress * 0.1;
   }
 
   keyframes += `}`;
@@ -134,29 +132,30 @@ export function useProgress(progress, id) {
    * @returns {void}
    */
   const animateProgress = useCallback(() => {
-    const progressContainer = store.getProgressContainer();
-    if (progressContainer) {
-      const animationName = `translateXAnimation-${id}-${Date.now()}`;
-      const progressAnimationKeyframes = store.getKeyframes(
-        true,
-        animationName,
-        Number(progress)
-      );
-      console.log("use-progress end");
-      const styleSheet = document.styleSheets[0];
-      if (
-        !styleSheet ||
-        !styleSheet.cssRules[0] ||
-        !styleSheet.cssRules[0].name ||
-        styleSheet.cssRules[0].name !== animationName
-      ) {
-        styleSheet.insertRule(
-          progressAnimationKeyframes,
-          styleSheet.cssRules.length
+    if (progress > 0) {
+      const progressContainer = store.getProgressContainer();
+      if (progressContainer) {
+        const animationName = `translateXAnimation-${id}-${Date.now()}`;
+        const progressAnimationKeyframes = store.getKeyframes(
+          true,
+          animationName,
+          Number(progress)
         );
-      }
 
-      progressContainer.style.animation = `${animationName} .9s 1 forwards`;
+        const styleSheet = document.styleSheets[0];
+        if (
+          !styleSheet ||
+          !styleSheet.cssRules[0] ||
+          !styleSheet.cssRules[0].name ||
+          styleSheet.cssRules[0].name !== animationName
+        ) {
+          styleSheet.insertRule(
+            progressAnimationKeyframes,
+            styleSheet.cssRules.length
+          );
+        }
+        progressContainer.style.animation = `${animationName} .9s 1 forwards`;
+      }
     }
   }, [id, progress, store]);
 

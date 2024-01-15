@@ -11,6 +11,7 @@ import { defaultConfing } from "../util/defaultConfig";
  * @property {string} resizeStyles - The styles for the crowdfunding component based on window size.
  */
 function useCrowdFunding() {
+  console.log("useCrowdFunding:render");
   /**
    * State for managing styles of the crowdfunding component.
    * @type {string}

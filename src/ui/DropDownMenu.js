@@ -83,6 +83,7 @@ function DropDownMenu({
   arrowAnimationValues,
   setArrowAnimationValues,
 }) {
+  console.log("DropDownMenu:render");
   const [isMenuActive, setIsMenuActive] = useState(false);
 
   /**

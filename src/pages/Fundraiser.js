@@ -1,10 +1,6 @@
 import { Outlet } from "react-router";
 
 import FundraiserMainNavigation from "../ui/FundraiserMainNavigation";
-import SideNav from "../ui/SideNav";
-
-// Context
-import { SideNavProvider } from "../context";
 
 /**
  * Component for the Fundraiser page.
@@ -12,6 +8,7 @@ import { SideNavProvider } from "../context";
  * @returns {JSX.Element} - The rendered component.
  */
 function Fundraiser() {
+  console.log("Fundraiser:render");
   return (
     <>
       {/* Header Section */}
@@ -27,9 +24,6 @@ function Fundraiser() {
 
       {/* Main Content Section */}
       <main className="container mx-auto mt-10">
-        <SideNavProvider>
-          <SideNav />
-        </SideNavProvider>
         <Outlet />
       </main>
     </>

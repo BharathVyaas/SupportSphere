@@ -4,11 +4,13 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Fundraiser from "./pages/Fundraiser";
 import useReSize from "./hooks/use-reSize";
+import MedicalExpenses from "./components/MedicalExpenses";
 
 // Lazy Loading
 const CrowdFunding = lazy(() => import("./components/CrowdFunding"));
 
 function App() {
+  console.log("App:render");
   useReSize();
 
   const router = createBrowserRouter([
@@ -27,13 +29,19 @@ function App() {
                   <CrowdFunding />
                 </Suspense>
               ),
-              loader: async () => {
-                const res = await fetch(
-                  "http://localhost:4001/campaign/view-campaigns:medicalExpenses"
-                );
+              children: [
+                {
+                  index: true,
+                  element: <MedicalExpenses />,
+                  loader: async () => {
+                    const res = await fetch(
+                      "http://localhost:4001/campaign/view-campaigns:medicalExpenses"
+                    );
 
-                return await res.json();
-              },
+                    return await res.json();
+                  },
+                },
+              ],
             },
           ],
         },

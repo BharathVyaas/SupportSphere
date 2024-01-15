@@ -77,6 +77,7 @@ export class EventConstructor {
     this.#isValidEvent(eventKey);
     this.#isValidType(eventType);
 
+    console.log("EventEmitter:emit:", eventType);
     // Will only emit if eventType is not same as stored type
     if (this.#prevEvent.eventKey !== eventType) {
       console.log({ eventKey, eventType, payload });
