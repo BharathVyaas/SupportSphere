@@ -13,7 +13,6 @@ import { defaultConfing } from "../util/defaultConfig";
  * @property {number} navLength - The length of the main navigation.
  */
 function useReSize() {
-  console.log("useResize:render");
   /**
    * Resize handler function, debounced to prevent excessive calls.
    */

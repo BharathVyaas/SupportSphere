@@ -50,7 +50,7 @@ const menuVariants = {
  */
 const menuItemVariants = {
   hidden: {
-    x: -50,
+    x: -100,
     opacity: 0.2,
   },
   visible: {
@@ -65,7 +65,7 @@ const menuItemVariants = {
  */
 const menuContainerVariants = {
   visible: {
-    transition: { staggerChildren: 0.07 },
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 }, // Adjust the delay as needed
   },
 };
 
@@ -83,7 +83,6 @@ function DropDownMenu({
   arrowAnimationValues,
   setArrowAnimationValues,
 }) {
-  console.log("DropDownMenu:render");
   const [isMenuActive, setIsMenuActive] = useState(false);
 
   /**
@@ -189,7 +188,7 @@ function DropDownMenu({
                 variants={menuVariants}
                 initial="hidden"
                 animate="visible"
-                className="absolute -top-2 right-0 shadow-2xl overflow-x-hidden overflow-y-auto z-10"
+                className="bg-sky-500 absolute -top-2 right-0 shadow-2xl overflow-x-hidden overflow-y-auto"
                 exit={{ opacity: 0, transition: { duration: 0.9 } }}
               >
                 {/* Img used as style for box white arrow attached on top of box */}
@@ -203,6 +202,7 @@ function DropDownMenu({
                 <motion.ul
                   ref={dropDownMenuRef}
                   variants={menuContainerVariants}
+                  transition={{ staggerChildren: 0.1 }}
                   className="min-w-[240px] p-3 rounded-md mt-5 border-[#cfcfcf] bg-lightBg border-[1px] text-text"
                 >
                   <AnimatePresence>
@@ -215,7 +215,7 @@ function DropDownMenu({
                             x: 5,
                             opacity: 0.2,
                           }}
-                          className="border-b-2 line-clamp-1 "
+                          className="border-b-2 line-clamp-1"
                         >
                           <Link to={element.link}>{element.title}</Link>
                         </motion.li>

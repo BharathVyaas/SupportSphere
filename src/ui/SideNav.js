@@ -29,7 +29,6 @@ const listVariants = {
  * @returns {JSX.Element} The rendered JSX element for the SideNav component.
  */
 function SideNav() {
-  console.log("SideNav:render");
   const { pathname } = useLocation();
 
   /**

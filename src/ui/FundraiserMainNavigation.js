@@ -14,7 +14,6 @@ import useNavList from "../hooks/use-navList";
  * @returns {JSX.Element} - The rendered component.
  */
 function FundraiserMainNavigation() {
-  console.log("FundraiserMainNavigation:render");
   /**
    * State for arrow animation values.
    */
@@ -68,7 +67,7 @@ function FundraiserMainNavigation() {
 
   return (
     <nav className="relative flex max-h-full">
-      <ul className="grid place-content-center grid-flow-col my-auto min-h-full text-[1.1rem]">
+      <ul className="grid place-content-center grid-flow-col my-auto min-h-full text-[1.1rem] z-50">
         {routes &&
           routes.map((route) => (
             <motion.li

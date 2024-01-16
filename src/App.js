@@ -10,7 +10,6 @@ import MedicalExpenses from "./components/MedicalExpenses";
 const CrowdFunding = lazy(() => import("./components/CrowdFunding"));
 
 function App() {
-  console.log("App:render");
   useReSize();
 
   const router = createBrowserRouter([

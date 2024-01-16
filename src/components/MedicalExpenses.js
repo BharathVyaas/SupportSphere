@@ -23,7 +23,6 @@ const cardVariants = {
 };
 
 function MedicalExpenses() {
-  console.log("MedicalExpenses:render");
   const medicalExpensesData = useLoaderData();
 
   /**
@@ -40,15 +39,6 @@ function MedicalExpenses() {
       initial="hidden"
       animate="visible"
     >
-      <li className="my-4 mx-auto">
-        <Card
-          id="1"
-          title="My Portfolio Project"
-          img={testImage}
-          raisedAmount="1500"
-          targetAmount="5000"
-        />
-      </li>
       {medicalExpensesData.map((campaign) => {
         return (
           <li key={campaign._id} className="my-4 mx-auto">

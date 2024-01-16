@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { EventEmitter } from "../util";
 import { defaultConfing } from "../util/defaultConfig";
@@ -11,7 +11,6 @@ import { defaultConfing } from "../util/defaultConfig";
  * @property {string} resizeStyles - The styles for the crowdfunding component based on window size.
  */
 function useCrowdFunding() {
-  console.log("useCrowdFunding:render");
   /**
    * State for managing styles of the crowdfunding component.
    * @type {string}
@@ -50,8 +49,8 @@ function useCrowdFunding() {
       : "margin-start-0 " + viewSize + "grid-columns-1"
   );
 
-  useEffect(() => {
-    const handleResize = (size) => {
+  const handleResize = useCallback(
+    (size) => {
       if (size === "2xl") {
         sizes.current.push(size);
         if (panelStyles)
@@ -75,8 +74,11 @@ function useCrowdFunding() {
         sizes.current.push(size);
         setResizeStyles("margin-start-0 " + viewSize + " grid-columns-1");
       }
-    };
+    },
+    [panelStyles]
+  );
 
+  useEffect(() => {
     const length = sizes.current.length - 1;
     if (sizes.current) handleResize(sizes.current[length]);
 
@@ -87,7 +89,12 @@ function useCrowdFunding() {
       EventEmitter.off("reSize", handleResize);
       EventEmitter.off("togglePanel", handleResize);
     };
-  }, [panelStyles, viewSize]);
+  }, [panelStyles, viewSize, handleResize]);
+
+  // Reload when component rendered
+  useEffect(() => {
+    handleResize(defaultConfing.initialSize);
+  }, [handleResize]);
 
   return { sizes, setResizeStyles, resizeStyles };
 }

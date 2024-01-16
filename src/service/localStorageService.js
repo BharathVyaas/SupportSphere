@@ -7,15 +7,26 @@ class LocalStorageService {
     return this.#LocalStorageInstance;
   }
 
-  get reload() {
-    const lsReload = localStorage.getItem("reload") === null || false;
-    this.reload = true;
+  get isAppReloaded() {
+    const lsReload = localStorage.getItem("INDEX/isAppReloaded");
+    this.isAppReloaded = true;
 
     return lsReload;
   }
 
-  set reload(isReload) {
-    localStorage.setItem("reload", isReload);
+  set isAppReloaded(isReload) {
+    localStorage.setItem("INDEX/isAppReloaded", isReload);
+  }
+
+  get isMedicalExpensesReloaded() {
+    const lsReload = localStorage.getItem("MEDICALEXPENSES/isAppReloaded");
+    this.isMedicalExpensesReloaded = true;
+
+    return lsReload;
+  }
+
+  set isMedicalExpensesReloaded(isReload) {
+    localStorage.setItem("MEDICALEXPENSES/isAppReloaded", isReload);
   }
 
   get firstVisit() {
@@ -25,7 +36,7 @@ class LocalStorageService {
       this.firstVisit = true;
     }
 
-    if (this.reload) {
+    if (this.isAppReloaded) {
       this.firstVisit = false;
     }
     return localStorage.getItem("firstVisit");
@@ -34,6 +45,8 @@ class LocalStorageService {
   set firstVisit(isFirstVisit) {
     localStorage.setItem("firstVisit", isFirstVisit);
   }
+
+  get;
 }
 
 export const LocalStorage = LocalStorageService.getLocalStorageInstance();
