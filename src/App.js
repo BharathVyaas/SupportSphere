@@ -14,6 +14,7 @@ import EducationFunding, {
   EFHelmet,
   loader as EFLoader,
 } from "./components/EducationFunding";
+import Events from "./pages/Events";
 
 // Lazy Loading
 const CrowdFunding = lazy(() => import("./components/CrowdFunding"));
@@ -36,6 +37,7 @@ function App() {
           path: "/*",
           element: <Fundraiser />,
           children: [
+            { path: "events", element: <Events /> },
             {
               path: "crowdfunding",
               element: (

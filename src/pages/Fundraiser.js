@@ -22,7 +22,7 @@ function Fundraiser() {
       </header>
 
       {/* Main Content Section */}
-      <main className="container mx-auto mt-10">
+      <main className="container mx-auto mt-20">
         <Outlet />
       </main>
     </>
