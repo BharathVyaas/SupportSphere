@@ -35,7 +35,7 @@ export function SideNavProvider({ children }) {
    * @type {boolean}
    */
   const [showSideNav, setShowSideNav] = useState(defaultConfing.initialSideNav);
-
+  defaultConfing.showSideNav = showSideNav;
   /**
    * Effect to emit a togglePanel event whenever the showSideNav state changes.
    */

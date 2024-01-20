@@ -1,3 +1,9 @@
+/**
+ *
+ * Note:
+ *  Reload logic works for this specific useCase and must be updated if service is required in other places.
+ */
+
 class LocalStorageService {
   static #LocalStorageInstance;
 

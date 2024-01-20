@@ -1,21 +1,36 @@
 import { Suspense, lazy } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import Home from "./pages/Home";
+import Home, { IndexHelmet } from "./pages/Home";
 import Fundraiser from "./pages/Fundraiser";
 import useReSize from "./hooks/use-reSize";
-import MedicalExpenses from "./components/MedicalExpenses";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./service/campaignService";
+import MedicalExpenses, {
+  MEHelmet,
+  loader as MELoader,
+} from "./components/MedicalExpenses";
+import EducationFunding, {
+  EFHelmet,
+  loader as EFLoader,
+} from "./components/EducationFunding";
 
 // Lazy Loading
 const CrowdFunding = lazy(() => import("./components/CrowdFunding"));
 
 function App() {
+  // Emits size event
   useReSize();
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home />,
+      element: (
+        <>
+          <IndexHelmet />
+          <Home />
+        </>
+      ),
       children: [
         {
           path: "/*",
@@ -31,14 +46,33 @@ function App() {
               children: [
                 {
                   index: true,
-                  element: <MedicalExpenses />,
-                  loader: async () => {
-                    const res = await fetch(
-                      "http://localhost:4001/campaign/view-campaigns:medicalExpenses"
-                    );
-
-                    return await res.json();
-                  },
+                  element: (
+                    <>
+                      <MEHelmet />
+                      <MedicalExpenses />
+                    </>
+                  ),
+                  loader: MELoader,
+                },
+                {
+                  path: "medical-expenses",
+                  element: (
+                    <>
+                      <MEHelmet />
+                      <MedicalExpenses />
+                    </>
+                  ),
+                  loader: MELoader,
+                },
+                {
+                  path: "education-fund",
+                  element: (
+                    <>
+                      <EFHelmet />
+                      <EducationFunding />
+                    </>
+                  ),
+                  loader: EFLoader,
                 },
               ],
             },
@@ -47,7 +81,12 @@ function App() {
       ],
     },
   ]);
-  return <RouterProvider router={router} />;
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;

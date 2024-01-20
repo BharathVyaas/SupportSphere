@@ -5,23 +5,21 @@ import { useQuery } from "@tanstack/react-query";
 import { queryClient, queryHadler } from "../service/campaignService";
 import CFContent from "./CFContent";
 
-function MedicalExpenses() {
-  console.log("MedicalExpenses:render");
-
+function EducationFunding() {
   // array of campaign objects
   const { data } = useQuery({
-    queryKey: ["crowdFunding", "medicalExpenses"],
-    queryFn: () => queryHadler("medicalExpenses"),
+    queryKey: ["crowdFunding", "educationFunding"],
+    queryFn: () => queryHadler("educationFunding"),
     staleTime: 3000,
   });
 
   return <CFContent data={data} />;
 }
 
-export default MedicalExpenses;
+export default EducationFunding;
 
 // MEdicalExpense code for Helmet
-export function MEHelmet() {
+export function EFHelmet() {
   return (
     <Helmet>
       <meta name="robots" content="index, follow" />
@@ -40,7 +38,7 @@ export function MEHelmet() {
       <meta name="og:type" content="article" />
       <meta
         name="og:url"
-        content={`http://${process.env.REACT_APP_DOMAIN}/medical-expenses`}
+        content={`http://${process.env.REACT_APP_DOMAIN}/education-fund`}
       />
     </Helmet>
   );
@@ -49,8 +47,8 @@ export function MEHelmet() {
 // Loader function of react router
 export const loader = async () => {
   const data = await queryClient.fetchQuery({
-    queryKey: ["crowdFunding", "medicalExpenses"],
-    queryFn: () => queryHadler("medicalExpenses"),
+    queryKey: ["crowdFunding", "educationFunding"],
+    queryFn: () => queryHadler("educationFunding"),
   });
 
   return data;

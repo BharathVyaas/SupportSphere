@@ -23,4 +23,5 @@ export const defaultConfing = {
   refreshResize: 300,
   eventTypes: ["sideBar", "xsm", "sm", "md", "lg", "xl", "2xl"],
   eventKeys: ["togglePanel", "reSize"],
+  showSideNav: false,
 };

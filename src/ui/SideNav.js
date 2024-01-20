@@ -32,6 +32,8 @@ function SideNav() {
   const { pathname } = useLocation();
 
   /**
+   * Note: Case is for SEO.
+   *
    * Array of side navigation items.
    * @type {Array.<Object>}
    */
@@ -93,10 +95,7 @@ function SideNav() {
                     className="px-8 py-2 mt-2"
                     key={element.id}
                   >
-                    <Link
-                      to={`${pathname}/${element.link}`}
-                      className="text-[1.1rem]"
-                    >
+                    <Link to={`${element.link}`} className="text-[1.1rem]">
                       {element.title}
                     </Link>
                   </motion.li>

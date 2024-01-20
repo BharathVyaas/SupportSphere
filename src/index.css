@@ -87,8 +87,4 @@
       ),
       conic-gradient(#32076350 80%, #ecf0f1 90%);
   }
-
-  .up {
-    z-index: 1000;
-  }
 }

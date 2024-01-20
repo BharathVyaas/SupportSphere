@@ -78,7 +78,7 @@ function FundraiserMainNavigation() {
             >
               <NavLink
                 className="[text-shadow:_0px_1px_4px_#f2f2f4]"
-                to={route.link}
+                to={route.path}
               >
                 {route.title}
               </NavLink>
