@@ -30,6 +30,7 @@ export const sideNavContext = createContext({});
  * @returns {JSX.Element} - The rendered component.
  */
 export function SideNavProvider({ children }) {
+  console.log("SideNavProvider:rerender");
   /**
    * State indicating whether the side navigation is visible.
    * @type {boolean}

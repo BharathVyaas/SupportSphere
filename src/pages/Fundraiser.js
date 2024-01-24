@@ -8,6 +8,7 @@ import FundraiserMainNavigation from "../ui/FundraiserMainNavigation";
  * @returns {JSX.Element} - The rendered component.
  */
 function Fundraiser() {
+  console.log("Fundraiser:rerender");
   return (
     <>
       {/* Header Section */}

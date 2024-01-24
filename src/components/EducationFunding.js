@@ -6,6 +6,7 @@ import { queryClient, queryHadler } from "../service/campaignService";
 import CFContent from "./CFContent";
 
 function EducationFunding() {
+  console.log("EducationFunding:rerender");
   // array of campaign objects
   const { data } = useQuery({
     queryKey: ["crowdFunding", "educationFunding"],

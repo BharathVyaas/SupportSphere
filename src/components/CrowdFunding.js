@@ -5,6 +5,7 @@ import SideNav from "../ui/SideNav";
 import { SideNavProvider } from "../context";
 
 function CrowdFunding() {
+  console.log("CrowdFunding:rerender");
   return (
     <>
       <SideNavProvider>

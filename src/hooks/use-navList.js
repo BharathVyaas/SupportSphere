@@ -43,6 +43,7 @@ function useDeepEqualSelector(selector) {
  * @property {Array} nav - Nav values for the navigation list.
  */
 function useNavList() {
+  console.log("useNavList:rerender");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,8 +59,10 @@ function useNavList() {
 
   const primaryRoutes = useDeepEqualSelector((state) => state.primaryRoutes);
 
-  const { dropdown, nav } = primaryRoutes;
-  return { dropdown, nav };
+  const returnValue = useMemo(() => {
+    return { dropdown: primaryRoutes.dropdown, nav: primaryRoutes.nav };
+  }, [primaryRoutes.dropdown, primaryRoutes.nav]);
+  return returnValue;
 }
 
 export default useNavList;

@@ -92,3 +92,146 @@
       conic-gradient(#32076350 80%, #ecf0f1 90%);
   }
 }
+
+._left0-open {
+  left: 0%;
+  width: 13rem;
+  animation: 1s _left-0-open;
+}
+
+._left20-open {
+  left: 20%;
+  width: 13rem;
+  animation: 1s _left-20-open;
+}
+
+._left40-open {
+  left: 40%;
+  width: 13rem;
+  animation: 1s _left-40-open;
+}
+
+._left60-open {
+  left: 60%;
+  width: 13rem;
+  animation: 1s _left-60-open;
+}
+
+._left80-open {
+  left: 80%;
+  width: 13rem;
+  animation: 1s _left-80-open;
+}
+
+@keyframes _left-0-open {
+  0% {
+    left: -1%;
+  }
+  100% {
+    left: 0%;
+  }
+}
+
+@keyframes _left-20-open {
+  0% {
+    left: 10%;
+  }
+  100% {
+    left: 20%;
+  }
+}
+
+@keyframes _left-40-open {
+  0% {
+    left: 20%;
+  }
+  100% {
+    left: 40%;
+  }
+}
+
+@keyframes _left-60-open {
+  0% {
+    left: 30%;
+  }
+  100% {
+    left: 60%;
+  }
+}
+
+@keyframes _left-80-open {
+  0% {
+    left: 40%;
+  }
+  100% {
+    left: 80%;
+  }
+}
+
+._left0-close {
+  text-align: start;
+  width: 4rem;
+  transition: width 0.8s ease;
+}
+
+._left20-close {
+  left: 5%;
+  width: 4rem;
+  transition: width 0.8s ease;
+  animation: 1s _left-20-close;
+}
+
+._left40-close {
+  left: 10%;
+  width: 4rem;
+  transition: width 0.8s ease;
+  animation: 1s _left-40-close;
+}
+
+._left60-close {
+  left: 15%;
+  width: 4rem;
+  transition: width 0.8s ease;
+  animation: 1s _left-60-close;
+}
+
+._left80-close {
+  left: 20%;
+  animation: 1s _left-80-close;
+}
+
+@keyframes _left-20-close {
+  0% {
+    left: 20%;
+  }
+  100% {
+    left: 5%;
+  }
+}
+
+@keyframes _left-40-close {
+  0% {
+    left: 40%;
+  }
+  100% {
+    left: 10%;
+  }
+}
+
+@keyframes _left-60-close {
+  0% {
+    left: 60%;
+  }
+  100% {
+    left: 15%;
+  }
+}
+
+@keyframes _left-80-close {
+  0% {
+    left: 80%;
+  }
+  100% {
+    left: 20%;
+  }
+}

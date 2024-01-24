@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
 import arrowIcon from "../assets/icons/arrow-down-active.png";
@@ -29,8 +29,6 @@ const listVariants = {
  * @returns {JSX.Element} The rendered JSX element for the SideNav component.
  */
 function SideNav() {
-  const { pathname } = useLocation();
-
   /**
    * Note: Case is for SEO.
    *

@@ -31,6 +31,7 @@ const cardVariants = {
 };
 
 function CFContent({ data }) {
+  console.log("CFContent:rerender");
   /**
    * Custom hook for handling crowd funding logic and styles.
    * @property {string} resizeStyles - The styles for the MedicalExpenses component based on window size.

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useMemo } from "react";
 
 /**
  * Class representing a store for progress-related data.
@@ -159,5 +159,9 @@ export function useProgress(progress, id) {
     }
   }, [id, progress, store]);
 
-  return { updateProgress, animateProgress };
+  const returnValue = useMemo(() => {
+    return { updateProgress, animateProgress };
+  }, [updateProgress, animateProgress]);
+
+  return returnValue;
 }

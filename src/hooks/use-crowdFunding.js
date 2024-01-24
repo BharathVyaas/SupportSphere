@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useMemo } from "react";
 
 import { EventEmitter } from "../util";
 import { defaultConfing } from "../util/defaultConfig";
@@ -11,6 +11,7 @@ import { defaultConfing } from "../util/defaultConfig";
  * @property {string} resizeStyles - The styles for the crowdfunding component based on window size.
  */
 function useCrowdFunding() {
+  console.log("useCrowdFunding:rerender");
   /**
    * State for managing styles of the crowdfunding component.
    * @type {string}
@@ -97,7 +98,11 @@ function useCrowdFunding() {
     handleResize(defaultConfing.initialSize);
   }, [handleResize]);
 
-  return { sizes, setResizeStyles, resizeStyles };
+  const returnValue = useMemo(() => {
+    return { sizes, setResizeStyles, resizeStyles };
+  }, [sizes, setResizeStyles, resizeStyles]);
+
+  return returnValue;
 }
 
 export default useCrowdFunding;
